@@ -1,10 +1,11 @@
 
 const asyncRequestHandler = callback => (req, res, next) => {
   Promise
-      .resolve(callback(req, res, next))
-      .catch(error => {
-          next(error);
-      });
+    .resolve(callback(req, res, next))
+    .catch(error => {
+      console.log(error);
+      next(error);
+    });
 };
 
 function WrappedRouter(router) {

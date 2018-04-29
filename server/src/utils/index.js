@@ -1,11 +1,13 @@
 const importEnv = require('./importEnv.util');
-const request = require('./request.util');
-const ExpressWrapper = require('./expressWrapper.util');
+const http = require('./http.util');
+const ExpressWrapper = require('./ExpressWrapper.util');
 const readFile = require('./readFile.util');
+const ResponseData = require('./ResponseData.util');
 
 module.exports = {
   importEnv,
-  request,
+  http,
   ExpressWrapper,
-  readFile
+  readFile,
+  ResponseData
 };

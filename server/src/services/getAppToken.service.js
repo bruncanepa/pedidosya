@@ -1,16 +1,11 @@
 const {PY_API_URL, PY_API_TOKEN_URI} = require('../config');
-const {request} = require('../utils');
-
-const options = {
-  host: PY_API_URL,
-  path: PY_API_TOKEN_URI,
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-};
+const {http, ResponseData} = require('../utils');
 
 module.exports = async() => {
-  const {access_token} = await request(options);
-  return {appToken: access_token};
+  const result = await http.get({url: `${PY_API_URL}${PY_API_TOKEN_URI}`});
+  return new ResponseData(Object.assign({}, result, {
+    data: {
+      appToken: result.data.access_token
+    }
+  }));
 };

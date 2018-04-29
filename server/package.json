@@ -5,6 +5,7 @@
   "repository": "https://github.com/brunocanepa/pedidos-ya",
   "author": "Bruno Cánepa",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
     "express": "^4.16.3"
