@@ -10,6 +10,7 @@ module.exports = {
   SERVER_PORT: SERVER_PORT || 3001,
   PY_API_TOKEN_URI: `/tokens?clientId=${PY_CLIENT_ID}&clientSecret=${PY_CLIENT_SECRET}`,
   PY_SIGN_IN_URI: `/tokens?userName={0}&password={1}`,
+  PY_GET_USER_URI: `/myAccount`,
   AUTHORIZATION_HEADER: 'Authorization',
   APP_ID_HEADER: 'X-App-Id'
 };

@@ -8,25 +8,25 @@ const asyncRequestHandler = callback => (req, res, next) => {
     });
 };
 
-function WrappedRouter(router) {
+function ExpressWrapper(router) {
   const self = this;
   self.router = router;
 }
 
-WrappedRouter.prototype.post = function (route, callback) {
+ExpressWrapper.prototype.post = function (route, callback) {
   this.router.post(route, asyncRequestHandler(callback))
 };
 
-WrappedRouter.prototype.put = function (route, callback) {
+ExpressWrapper.prototype.put = function (route, callback) {
   this.router.put(route, asyncRequestHandler(callback))
 };
 
-WrappedRouter.prototype.get = function (route, callback) {
+ExpressWrapper.prototype.get = function (route, callback) {
   this.router.get(route, asyncRequestHandler(callback))
 };
 
-WrappedRouter.prototype.delete = function (route, callback) {
+ExpressWrapper.prototype.delete = function (route, callback) {
   this.router.delete(route, asyncRequestHandler(callback))
 };
 
-module.exports = WrappedRouter;
+module.exports = ExpressWrapper;

@@ -1,28 +1,35 @@
 const getAppToken = require('./getAppToken.service');
-const {http, ResponseData} = require('../utils');
+const {http, headers} = require('../utils');
+const {ResponseData} = require('../models');
 const {PY_API_URL, PY_SIGN_IN_URI} = require('../config');
 const dictionary = require('../localization');
 
-const getHeaders = (token) => ({Authorization: token});
+const baseURL = `${PY_API_URL}${PY_SIGN_IN_URI}`;
+
+const signIn = async({appToken, username, password}) => {
+  const url = `${baseURL.format(username, password)}`;
+  const request = {url, headers: headers(appToken)};
+  let result = {success: false, message: dictionary.invalidLogIn};
+
+  const signInResult = await http.get(request);
+  const {access_token} = signInResult.data;
+
+  if (signInResult.success && access_token) {
+    result = {success: true, data: {sessionToken: access_token, appToken}};
+  } else {
+    result.status = signInResult.status;
+  }
+  return result;
+};
 
 module.exports = async({username, password}) => {
-  let result = {success: false, data: {}, message: dictionary.invalidAppToken};
+  let result = {success: false, message: dictionary.invalidAppToken};
 
-  const url = `${PY_API_URL}${PY_SIGN_IN_URI.format(username, password)}`;
   const {success, data} = await getAppToken();
-
   const {appToken} = data;
+
   if (success && appToken) {
-    const request = {url, headers: getHeaders(appToken)};
-    const signInResult = await http.get(request);
-    
-    const {access_token} = signInResult.data;
-    if (signInResult.success && access_token) {
-      result = {success: true, data: {sessionToken: access_token, appToken}};
-    } else {
-      result.message = dictionary.invalidLogIn;
-      result.status = signInResult.status;
-    }
+    result = await signIn({appToken, username, password});
   }
 
   return new ResponseData(result);

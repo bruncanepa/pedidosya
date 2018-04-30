@@ -1,5 +1,5 @@
 const axios = require('axios');
-const ResponseData = require('./ResponseData.util');
+const {ResponseData} = require('../models');
 
 module.exports = {
   get: async({url, headers = {}}) => {
