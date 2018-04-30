@@ -3,7 +3,7 @@ const {APP_ID_HEADER, AUTHORIZATION_HEADER} = require('../config');
 
 const signInEndpoint = async(req, res) => {
   const result = await signIn(req.body);
-  const {data, success, status} = result;
+  const {data, success} = result;
 
   if (success) {
     res.set(AUTHORIZATION_HEADER, data.sessionToken);

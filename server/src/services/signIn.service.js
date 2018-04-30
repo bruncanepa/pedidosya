@@ -9,16 +9,17 @@ const baseURL = `${PY_API_URL}${PY_SIGN_IN_URI}`;
 const signIn = async({appToken, username, password}) => {
   const url = `${baseURL.format(username, password)}`;
   const request = {url, headers: headers(appToken)};
-  let result = {success: false, message: dictionary.invalidLogIn};
+  const result = {success: false, message: dictionary.invalidLogIn};
 
-  const signInResult = await http.get(request);
-  const {access_token} = signInResult.data;
+  const {success, data} = await http.get(request);
+  const {access_token} = data;
 
-  if (signInResult.success && access_token) {
-    result = {success: true, data: {sessionToken: access_token, appToken}};
-  } else {
-    result.status = signInResult.status;
-  }
+  if (success && access_token) {
+    result.success = true;
+    result.data = {sessionToken: access_token, appToken};
+    result.message = '';
+  } 
+
   return result;
 };
 

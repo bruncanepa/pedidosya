@@ -1,14 +1,12 @@
-const {signIn} = require('../services');
-const {APP_ID_HEADER, AUTHORIZATION_HEADER} = require('../config');
+const {getUser} = require('../services');
+const { AUTHORIZATION_HEADER} = require('../config');
 
 const getEndpoint = async(req, res) => {
-  const result = await signIn(req.body);
-  const {data, success, status} = result;
+  const sessionToken = req.auth[AUTHORIZATION_HEADER];
+  const result = await getUser({sessionToken});
 
-  if (success) {
-    res.set(AUTHORIZATION_HEADER, data.sessionToken);
-    res.set(APP_ID_HEADER, data.appToken);
-    res.send({success});
+  if (result.success) {
+    res.send(result);
   } else {
     res.status(401).send(result);
   }
