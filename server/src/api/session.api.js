@@ -7,7 +7,6 @@ const signInEndpoint = async(req, res) => {
 
   if (success) {
     res.set(AUTHORIZATION_HEADER, data.sessionToken);
-    res.set(APP_ID_HEADER, data.appToken);
     res.send({success});
   } else {
     res.status(401).send(result);

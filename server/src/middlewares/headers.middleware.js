@@ -1,9 +1,11 @@
-const {APP_ID_HEADER, AUTHORIZATION_HEADER} = require('../config');
+const {AUTHORIZATION_HEADER} = require('../config');
 
 module.exports = (app) => {
   app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', `Content-Type, Accept, ${AUTHORIZATION_HEADER}`);
     req.auth = {
-      [APP_ID_HEADER]: req.headers[APP_ID_HEADER.toLowerCase()],
       [AUTHORIZATION_HEADER]: req.headers[AUTHORIZATION_HEADER.toLowerCase()]
     };
     next();
