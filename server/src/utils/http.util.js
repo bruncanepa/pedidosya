@@ -11,7 +11,7 @@ module.exports = {
     const {data, status} = await instance
       .get(url)
       .catch(error => {
-        return new ResponseData({status: error.response.status});
+        return new ResponseData({status: error.nested(['response', 'satus'])});
       });
 
     return new ResponseData({data, success: status == 200, status });

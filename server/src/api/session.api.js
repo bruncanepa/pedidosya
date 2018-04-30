@@ -1,5 +1,5 @@
 const {signIn} = require('../services');
-const {APP_ID_HEADER, AUTHORIZATION_HEADER} = require('../config');
+const {AUTHORIZATION_HEADER} = require('../config');
 
 const signInEndpoint = async(req, res) => {
   const result = await signIn(req.body);

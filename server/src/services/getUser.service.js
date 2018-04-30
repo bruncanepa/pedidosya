@@ -1,14 +1,14 @@
-const {PY_API_URL, PY_GET_USER_URI} = require('../config');
+const {PY_GET_USER_URI} = require('../config');
 const {http, headers} = require('../utils');
 const {ResponseData, User} = require('../models');
 const dictionary = require('../localization');
 
-const url = `${PY_API_URL}${PY_GET_USER_URI}`;
+const url = PY_GET_USER_URI;
 
 module.exports = async({sessionToken}) => {
   const result = {success: false, message: dictionary.invalidSessionToken};
   
-  const {success, data} = await http.get({url, headers: headers(sessionToken)});
+  const {success, data} = await http.get({url, headers: headers.create(sessionToken)});
 
   if (success) {
     result.success = true;
