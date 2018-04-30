@@ -12,6 +12,8 @@ importEnv()
     const run = () => {
       const app = express();
 
+      // app.use(express.static(`${__dirname}/../../client/public`));
+
       useMiddlewares(app);
 
       app.listen(SERVER_PORT, () => {
