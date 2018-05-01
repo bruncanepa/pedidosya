@@ -16,15 +16,26 @@ const container = T => class Form extends React.Component {
     };
   }
 
-  onTextChange = (id, text) => {
-    const inputValues = [...this.state.inputValues];
-    inputValues[id] = text;
-    this.setState({inputValues});
+  onTextChange = (id) => {
+    return (text) => {
+      const inputValues = [...this.state.inputValues];
+      inputValues[id] = text;
+      this.setState({inputValues});
+    }
   }
 
-  onNext = () => {
-    const {form} = this.props;
-    return this.props.form
+  onSend = () => {
+    const {inputValues} = this.state;
+    const {inputs, send} = this.props.form;
+    const validForm = inputs.every((input, id) => input.validate(inputValues[id]));
+    if (validForm) {
+      const data = inputs.reduce((map, input, id) => {
+        map[input.name] = inputValues[id];
+        return map;
+      }, {});
+      send.callback(data);
+    }
+    return validForm;
   }
 
   render() {
@@ -32,7 +43,7 @@ const container = T => class Form extends React.Component {
       {...this.props}
       {...this.state}
       onTextChange={this.onTextChange}
-      onNext={this.onNext}/>)
+      onSend={this.onSend}/>)
   }
 };
 

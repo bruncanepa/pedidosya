@@ -1,7 +1,5 @@
-import restaurantPropTypes from './restaurant.propTypes';
-import userProptype from './user.propTypes';
+import restaurant from './restaurant.propTypes';
+import user from './user.propTypes';
 
-export default {
-  restaurantPropTypes,
-  userProptype
-};
+export const restaurantPropTypes = restaurant;
+export const userPropTypes = user;

@@ -13,24 +13,12 @@ class Form extends React.Component {
       .arrayOf(PropTypes.string)
       .isRequired,
     onTextChange: PropTypes.func.isRequired,
-    onNext: PropTypes.func.isRequired
-  }
-
-  onTextChange = (id, text) => {
-    this
-      .props
-      .onTextChange(id, text);
-  }
-
-  onChange = (id) => {
-    return (text) => {
-      this.onTextChange(id, text);
-    }
+    onSend: PropTypes.func.isRequired
   }
 
   render() {
-    const {form, inputValues, onNext} = this.props;
-    const {title, inputs, next} = form;
+    const {form, inputValues, onTextChange, onSend} = this.props;
+    const {title, inputs, send} = form;
     return (
       <div style={styles.content}>
         <h2>{title.text}</h2>
@@ -44,10 +32,10 @@ class Form extends React.Component {
               placeholder={input.text}
               required
               autoFocus={index == 0}
-              onChange={this.onChange(index)}></InputForm>
+              onChange={onTextChange(index)}></InputForm>
           ))}
         </div>
-        <ButtonForm onClick={onNext} text={next.text}/>
+        <ButtonForm onClick={onSend} text={send.text}/>
       </div>
     );
   }

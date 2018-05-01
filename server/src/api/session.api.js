@@ -14,6 +14,6 @@ const signInEndpoint = async(req, res) => {
 };
 
 module.exports = (router) => {
-  router.get('/', signInEndpoint);
+  router.post('/', signInEndpoint);
   return router;
 };

@@ -1,6 +1,6 @@
-export const isNullOrEmpty = (value) => {
+const isNullOrEmpty = (value) => {
   const valueTrimed = value && value.trim();
-  return !!valueTrimed;
+  return !valueTrimed;
 };
 
 export default {
