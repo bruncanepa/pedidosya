@@ -1,9 +1,9 @@
 import React from 'react';
 
-const container = T => class SignedIn extends React.Component {
+const container = T => class InputForm extends React.Component {
   render(){
     return (
-      <T />
+      <T {...this.props}/>
     )
   }
 };

@@ -1,13 +1,19 @@
 import React from 'react';
 
 import container from '../containers/Restaurant.container';
+import {restaurantPropTypes} from '../propTypes';
 
-const Restaurant = function () {
+const Restaurant = function ({restaurant}) {
+  const {name} = restaurant;
   return (
     <div>
-      Restaurant
+      Restaurant {name}
     </div>
   );
+};
+
+Restaurant.Proptype = {
+  restaurant: restaurantPropTypes
 };
 
 export default container(Restaurant);

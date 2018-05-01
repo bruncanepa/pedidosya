@@ -1,7 +1,11 @@
 import React from 'react';
 
-const container = T => class RestaurantList extends React.Component {
+import {restaurantPropTypes} from '../propTypes';
 
+const container = T => class RestaurantList extends React.Component {
+  static propTypes = {
+    restaurants: PropTypes.arrayOf(restaurantPropTypes)
+  };
   render(){
     return (
       <T />

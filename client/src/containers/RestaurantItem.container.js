@@ -1,11 +1,15 @@
 import React from 'react';
 
+import {restaurantPropTypes} from '../propTypes';
+
 const container = T => class Restaurant extends React.Component {
 
-  render(){
-    return (
-      <T />
-    )
+  static propTypes = {
+    restaurant: restaurantPropTypes
+  };
+
+  render() {
+    return (<T/>)
   }
 };
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 require('./src/extensions');
 const importEnv = require('./src/utils/importEnv.util');
@@ -11,8 +12,6 @@ importEnv()
 
     const run = () => {
       const app = express();
-
-      // app.use(express.static(`${__dirname}/../../client/public`));
 
       useMiddlewares(app);
 
