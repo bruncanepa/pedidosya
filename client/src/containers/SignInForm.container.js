@@ -3,6 +3,7 @@ import React from 'react';
 import dictionary from '../localization';
 import {validator} from '../utils';
 import {sessionAPI} from '../api';
+import {routes} from '../constants';
 
 const {signInForm} = dictionary;
 
@@ -25,11 +26,17 @@ const form = {
   ],
   send: {
     text: signInForm.send,
-    callback: (form) => sessionAPI.signIn(form)
+    callback: (form) => sessionAPI.signIn(form),
+    nextRoute: routes.search
   }
 };
 
 const container = T => class SignInForm extends React.Component {
+  
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     return (<T form={form}/>)
   }

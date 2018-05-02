@@ -1,22 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Route} from 'react-router-dom';
 
 import container from '../../containers/ButtonForm.container';
 import styles from './styles';
 
-const ButtonForm = function ({onClick, text}) {
-  return (
-    <div style={styles.content}>
-      <button style={styles.button} onClick={onClick}>
-        {text}
-      </button>
-    </div>
-  );
-};
+class ButtonForm extends React.Component {
+  static propTypes = {
+    onClick: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
+    nextRoute: PropTypes.string
+  }
 
-ButtonForm.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired
-};
+  onClick = (history) => {
+    return async() => {
+      const {onClick, nextRoute} = this.props
+      const result = await onClick();
+      if (result && nextRoute) {
+        history.push(nextRoute);
+      } 
+    }
+  }
+
+  render() {
+    const {onClick, text} = this.props;
+    return (
+      <Route render={({history}) => (
+        <div style={styles.content}>
+          <button style={styles.button} onClick={this.onClick(history)}>
+            {text}
+          </button>
+        </div>
+      )}/>
+    )
+  }
+};  
+
 
 export default container(ButtonForm);

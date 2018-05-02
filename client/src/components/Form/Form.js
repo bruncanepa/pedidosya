@@ -35,7 +35,7 @@ class Form extends React.Component {
               onChange={onTextChange(index)}></InputForm>
           ))}
         </div>
-        <ButtonForm onClick={onSend} text={send.text}/>
+        <ButtonForm onClick={onSend} text={send.text} nextRoute={send.nextRoute}/>
       </div>
     );
   }

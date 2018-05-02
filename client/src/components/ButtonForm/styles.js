@@ -4,7 +4,8 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%',
-    height: 30
+    height: 30,
+    paddingTop: 10
   },
   button : {
     textAlign: 'center',

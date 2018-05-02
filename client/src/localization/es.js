@@ -23,5 +23,10 @@ export default {
     topCategories: 'Categorías: ',
     deliveryTimeMaxMinutes: 'Tiempo de envío: ',
     minutes: ' minutos'
+  },
+  menuBar: {
+    searchRestaurants: 'Restaurantes',
+    administration: 'Administración'
   }
+
 };
