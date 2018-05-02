@@ -11,7 +11,7 @@ const Administration = function({onSignOut, signOutNextRoute}) {
     <div style={styles.content}>
       <ButtonForm nextRoute={signOutNextRoute} onClick={onSignOut} text={dictionary.administration.signOut}/>
     </div>
-  )
+  );
 };
 
 Administration.propTypes = {

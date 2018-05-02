@@ -1,11 +1,12 @@
 import {getHttp} from './http';
+import {publishSubscribe} from '../utils';
+
+const {events, publish} = publishSubscribe;
 
 const getAll = async({latitude, longitude}) => {
   const {success, data} = await getHttp(`restaurants?lat=${latitude}&lng=${longitude}`);
 
-  if (success) {
-    console.log(success)
-  }
+  return {success, data, latitude, longitude};
 };
 
 const getImage = async({logo}) => {

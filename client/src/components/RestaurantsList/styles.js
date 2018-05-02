@@ -1,14 +1,24 @@
 export default {
-  content: {
+  content : {
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgb(241, 241, 241)'
+    padding: 5,
+    backgroundColor: 'rgb(241, 241, 241)',
   },
-  listContent: {
+  listContent : {
     width: '100%',
-    padding: 5
+    padding: 5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 30,
+    flexDirection: 'column'
+  },
+  infoLabel : {
+    fontWeight: 'bold',
+    fontSize: 12
   }
 };

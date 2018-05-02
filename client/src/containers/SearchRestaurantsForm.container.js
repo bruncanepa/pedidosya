@@ -1,7 +1,7 @@
 import React from 'react';
 
 import dictionary from '../localization';
-import {validator} from '../utils';
+import {validator, publishSubscribe} from '../utils';
 import {restaurantsAPI} from '../api';
 import {routes} from '../constants';
 
@@ -16,6 +16,7 @@ const form = {
       name: 'latitude',
       text: searchRestaurantsForm.latitude,
       type: 'text',
+      validate: (latitude) => !validator.isNullOrEmpty(latitude),
       validate: (latitude) => !validator.isNullOrEmpty(latitude)
     }, {
       name: 'longitude',
@@ -26,7 +27,7 @@ const form = {
   ],
   send: {
     text: searchRestaurantsForm.send,
-    callback: (data) => restaurantsAPI.getAll(data),
+    callback: async(data) => await restaurantsAPI.getAll(data),
     nextRoute: routes.restaurants
   }
 };

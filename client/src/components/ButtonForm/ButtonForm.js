@@ -5,19 +5,24 @@ import {Route} from 'react-router-dom';
 import container from '../../containers/ButtonForm.container';
 import styles from './styles';
 
+
 class ButtonForm extends React.Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    nextRoute: PropTypes.string
+    nextRoute: PropTypes.string,
+    event: PropTypes.string
   }
 
   onClick = (history) => {
     return async() => {
       const {onClick, nextRoute} = this.props
       const result = await onClick();
-      if (result && nextRoute) {
-        history.push(nextRoute);
+      if (nextRoute && result.success) {
+        history.push({
+          pathname: nextRoute,
+          state: result
+        });
       } 
     }
   }
@@ -35,6 +40,5 @@ class ButtonForm extends React.Component {
     )
   }
 };  
-
 
 export default container(ButtonForm);

@@ -31,11 +31,10 @@ const container = T => class Root extends React.Component {
 
   onSignOut = () => {
     this.setState({signedIn: false});
-    http.setUserSession();
   }
 
   render() {
-    return (<T {...this.state} />)
+    return <T {...this.state} />;
   }
 };
 

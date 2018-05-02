@@ -46,7 +46,8 @@ export const publish = function (event, payload) {
 
 export const events = {
   SIGN_IN: 'SIGN_IN',
-  SING_OUT: 'SING_OUT'
+  SING_OUT: 'SING_OUT',
+  GET_RESTAURANTS: 'GET_RESTAURANTS'
 };
 
 export default {

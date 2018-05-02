@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const container = T => class Form extends React.Component {
   static propTypes = {
-    form: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired
   }
 
   constructor(props) {
@@ -32,18 +32,21 @@ const container = T => class Form extends React.Component {
 
   onSend = async () => {
     const {inputValues} = this.state;
-    const {inputs, send} = this.props.form;
+    const {form, onSend} = this.props;
+    const {inputs, send} = form;
+
     const validForm = inputs.every((input, id) => input.validate(inputValues[id]));
     if (validForm) {
       const data = inputs.reduce((map, input, id) => {
         map[input.name] = inputValues[id];
         return map;
       }, {});
-      await send.callback(data);
-    } else {
-      this.setState({validForm: false});
+      const response = await send.callback(data);
+      return response;
     }
-    return validForm;
+    this.setState({validForm});
+    
+    return {success: validForm};
   }
 
   render() {

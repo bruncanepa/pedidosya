@@ -16,6 +16,7 @@ const form = {
       name: 'username',
       text: signInForm.username,
       type: 'email',
+      validate: (username) => !validator.isNullOrEmpty(username),
       validate: (username) => !validator.isNullOrEmpty(username)
     }, {
       name: 'password',
@@ -26,13 +27,13 @@ const form = {
   ],
   send: {
     text: signInForm.send,
-    callback: (form) => sessionAPI.signIn(form),
+    callback: async(form) => await sessionAPI.signIn(form),
     nextRoute: routes.search
   }
 };
 
 const container = T => class SignInForm extends React.Component {
-  
+
   shouldComponentUpdate() {
     return false;
   }

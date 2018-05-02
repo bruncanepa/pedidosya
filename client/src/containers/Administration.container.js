@@ -14,6 +14,7 @@ const container = T => class Administration extends React.Component {
 
   onSignOut = () => {
     sessionAPI.signOut();
+    return {success: true};
   }
 
   render() {

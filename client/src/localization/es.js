@@ -1,34 +1,36 @@
 export default {
-  header: {
+  header : {
     title: 'PedidosYa'
   },
-  signInForm: {
+  signInForm : {
     title: 'Iniciar sesión',
     username: 'Usuario',
     password: 'Contraseña',
     send: 'Iniciar sesión'
   },
-  searchRestaurantsForm: {
+  searchRestaurantsForm : {
     title: 'Búsqueda de restaurantes',
     latitude: 'Latitud',
     longitude: 'Longitud',
     send: 'Buscar'
   },
-  restaurantsList: {
-    title: 'Resultados'
+  restaurantsList : {
+    title: 'Resultados',
+    noItems: 'No hay restaurantes cerca de esa zona',
+    zone: 'Coordenadas: latitud = {0}, longitud = {1}'
   },
-  restaurantItem: {
+  restaurantItem : {
     profile: 'Más información',
     rating: 'Calificación: ',
     topCategories: 'Categorías: ',
     deliveryTimeMaxMinutes: 'Tiempo de envío: ',
     minutes: ' minutos'
   },
-  menuBar: {
+  menuBar : {
     searchRestaurants: 'Restaurantes',
     administration: 'Administración'
   },
-  administration: {
+  administration : {
     signOut: 'Salir'
   }
 };
