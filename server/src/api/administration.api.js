@@ -1,5 +1,5 @@
 const {getUser, onlineUsers} = require('../services');
-const {AUTHORIZATION_HEADER, RESTAURANTS_CACHE_CONTROL_TIME} = require('../config');
+const {AUTHORIZATION_HEADER} = require('../config');
 const {headers} = require('../utils');
 const {http} = require('../utils');
 const {statusCodes} = http;

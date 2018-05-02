@@ -4,8 +4,7 @@ const {
   PY_CLIENT_ID,
   PY_CLIENT_SECRET,
   PY_RESTAURANT_LOGO_API_URL,
-  PY_PROFILE_API_URL,
-  RESTAURANTS_CACHE_CONTROL_TIME
+  PY_PROFILE_API_URL
 } = process.env;
 
 module.exports = {
@@ -16,6 +15,5 @@ module.exports = {
   PY_GET_USER_URI: `${PY_API_URL}/myAccount`,
   PY_GET_RESTAURANTS_URI: `${PY_API_URL}/search/restaurants`,
   SERVER_PORT: SERVER_PORT || 3001,
-  AUTHORIZATION_HEADER: 'Authorization',
-  RESTAURANTS_CACHE_CONTROL_TIME
+  AUTHORIZATION_HEADER: 'Authorization'
 };
