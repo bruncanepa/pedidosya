@@ -13,7 +13,7 @@ const signIn = async (form) => {
     localStorage.saveState(sessionToken);
   }
 
-  return body.success;
+  return body;
 };
 
 const signOut = async () => {

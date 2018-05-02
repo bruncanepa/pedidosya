@@ -32,5 +32,8 @@ export default {
   },
   administration : {
     signOut: 'Salir'
+  },
+  form: {
+    error: 'Campos inválidos'
   }
 };

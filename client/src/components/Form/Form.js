@@ -5,6 +5,7 @@ import container from '../../containers/Form.container';
 import styles from './styles';
 import InputForm from '../InputForm';
 import ButtonForm from '../ButtonForm';
+import dictionary from '../../localization';
 
 class Form extends React.Component {
   static propTypes = {
@@ -13,11 +14,13 @@ class Form extends React.Component {
       .arrayOf(PropTypes.string)
       .isRequired,
     onTextChange: PropTypes.func.isRequired,
-    onSend: PropTypes.func.isRequired
+    onSend: PropTypes.func.isRequired,
+    validForm: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string
   }
 
   render() {
-    const {form, inputValues, onTextChange, onSend} = this.props;
+    const {form, inputValues, onTextChange, onSend, validForm, errorMessage} = this.props;
     const {title, inputs, send} = form;
     return (
       <div style={styles.content}>
@@ -34,6 +37,9 @@ class Form extends React.Component {
               autoFocus={index == 0}
               onChange={onTextChange(index)}></InputForm>
           ))}
+        </div>
+        <div style={styles.errorContent}>
+          {!validForm && <label style={styles.errorLabel}>{errorMessage || dictionary.form.error} </label>}
         </div>
         <ButtonForm onClick={onSend} text={send.text} nextRoute={send.nextRoute} event={send.event}/>
       </div>

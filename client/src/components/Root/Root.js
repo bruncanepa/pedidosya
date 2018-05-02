@@ -10,7 +10,6 @@ import RestaurantsList from '../RestaurantsList';
 import Administration from '../Administration';
 import PrivateRoute from './PrivateRoute';
 import HomeRoute from './HomeRoute';
-import {http} from '../../api';
 import {routes} from '../../constants';
 
 const Root = function ({signedIn}) {
@@ -33,7 +32,7 @@ const Root = function ({signedIn}) {
               <Route
                 exact={true}
                 path={routes.restaurants}
-                render={() => PrivateRoute(RestaurantsList, signedIn)}/>
+                render={({history}) => history.location.state ? PrivateRoute(RestaurantsList, signedIn) : <Redirect to={routes.search}/>}/>
               <Route
                 exact={true}
                 path={routes.administration}

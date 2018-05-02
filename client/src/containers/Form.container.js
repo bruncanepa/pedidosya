@@ -12,21 +12,23 @@ const container = T => class Form extends React.Component {
     this.state = {
       inputValues: inputs
         .map(i => i.defaultValue || ''),
-      validForm: true
+      validForm: true,
+      errorMessage: ''
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {inputValues, validForm} = this.state;
+    const {inputValues, validForm, errorMessage} = this.state;
     const {form} = this.props;
-    return inputValues != nextState.inputValues || validForm != nextState.validForm || form != nextProps.form;
+    return inputValues != nextState.inputValues || validForm != nextState.validForm 
+      || form != nextProps.form || errorMessage != nextState.errorMessage;
   }
 
   onTextChange = (id) => {
     return (text) => {
       const inputValues = [...this.state.inputValues];
       inputValues[id] = text;
-      this.setState({inputValues});
+      this.setState({inputValues, validForm: true});
     }
   }
 
@@ -42,10 +44,10 @@ const container = T => class Form extends React.Component {
         return map;
       }, {});
       const response = await send.callback(data);
+      this.setState({errorMessage: response.message, validForm: response.success});
       return response;
     }
     this.setState({validForm});
-    
     return {success: validForm};
   }
 

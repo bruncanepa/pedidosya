@@ -8,7 +8,7 @@ import dictionary from '../../localization';
 const {restaurantItem} = dictionary;
 
 const Restaurant = function ({restaurant, image}) {
-  const {name, topCategories, rating, logo, deliveryTimeMaxMinutes, link} = restaurant;
+  const {name, topCategories, rating, deliveryTimeMaxMinutes, link} = restaurant;
   return (
     <div style={styles.content}>
       <div style={styles.left}>
