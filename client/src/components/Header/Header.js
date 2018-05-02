@@ -7,10 +7,11 @@ import {userPropTypes} from '../../propTypes';
 
 const Header = function ({user}) {
   const name = user && user.name;
+  const lastName = user && user.lastName;
   return (
     <div style={styles.content}>
       <span style={styles.titleSpan}>{dictionary.header.title}</span>
-      <span style={styles.nameSpan}>{name}</span>
+      <span style={styles.nameSpan}>{name} {lastName}</span>
     </div>
   );
 };

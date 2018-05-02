@@ -15,7 +15,7 @@ const Root = function () {
       <div style={styles.content}>
         <Router>
           <Switch>
-            <Route exact={true} path='/' component={RestaurantsList}/>
+            <Route exact={true} path='/' component={SignInForm}/>
             <Route exact={true} path='/restaurants' component={SearchRestaurantsForm}/>
             <Route
               exact={true}

@@ -1,10 +1,11 @@
+const {http} = require('../utils');
 
 const asyncRequestHandler = callback => (req, res, next) => {
   Promise
     .resolve(callback(req, res, next))
     .catch(error => {
       console.log(error);
-      next(error);
+      res.status(http.statusCodes.BAD_REQUEST).send(error);
     });
 };
 

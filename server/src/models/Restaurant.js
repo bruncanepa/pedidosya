@@ -5,7 +5,7 @@ function Restaurant({name, topCategories, ratingScore, logo, deliveryTimeMaxMinu
   self.name = name;
   self.topCategories = topCategories;
   self.rating = parseFloat(ratingScore);
-  self.logo = `${PY_RESTAURANT_LOGO_API_URL}/${logo}`;
+  self.logo = logo;
   self.deliveryTimeMaxMinutes = deliveryTimeMaxMinutes;
   self.link = PY_PROFILE_API_URL.format(link);
 }

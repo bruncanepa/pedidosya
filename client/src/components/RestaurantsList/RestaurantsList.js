@@ -13,7 +13,7 @@ const RestaurantList = function ({restaurants}) {
   return (
     <div style={styles.content}>
       <h2>{restaurantsList.title}</h2>
-      <div>
+      <div style={styles.listContent}>
         {restaurants.map(restaurant => (<RestaurantItem key={restaurant.name} restaurant={restaurant}/>))}
       </div>
     </div>

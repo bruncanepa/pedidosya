@@ -5,6 +5,7 @@ module.exports = (app) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', `Content-Type, Accept, ${AUTHORIZATION_HEADER}`);
+    res.header('Access-Control-Expose-Headers', AUTHORIZATION_HEADER);
     req.auth = {
       [AUTHORIZATION_HEADER]: req.headers[AUTHORIZATION_HEADER.toLowerCase()]
     };

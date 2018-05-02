@@ -10,7 +10,6 @@ const limit = 20;
 const fields = 'name,topCategories,ratingScore,logo,deliveryTimeMaxMinutes,link';
 const sort = 'rating';
 
-// El sort no funciona. Y pasaria opened=1, para que me traiga solo los restaurantes abiertos
 const getURL = ({lat, lng}) => {
   return `${baseURL}?country=${country}&point=${lat},${lng}&offset=${offset}&max=${limit}&sort=${sort}&fields=${fields}`;
 };

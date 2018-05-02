@@ -1,11 +1,19 @@
-import {postHttp} from './http';
+import {postHttp, setUserSession} from './http';
+import {localStorage, publishSubscribe} from '../utils';
+
+const {events, publish} = publishSubscribe;
 
 const signIn = async (form) => {
-  const {success} = await postHttp(`session`, {...form});
+  const {body, headers} = await postHttp(`session`, {...form}, {headers: true});
 
-  if (success) {
-    console.log(success)
+  if (body.success) {
+    const {sessionToken} = body.data;
+    setUserSession(sessionToken);
+    publish(events.SIGN_IN, sessionToken);
+    localStorage.saveState(sessionToken);
   }
+
+  return body.success;
 };
 
 export default {

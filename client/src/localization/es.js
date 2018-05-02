@@ -16,5 +16,12 @@ export default {
   },
   restaurantsList: {
     title: 'Resultados'
+  },
+  restaurantItem: {
+    profile: 'Más información',
+    rating: 'Calificación: ',
+    topCategories: 'Categorías: ',
+    deliveryTimeMaxMinutes: 'Tiempo de envío: ',
+    minutes: ' minutos'
   }
 };

@@ -1,11 +1,8 @@
-import {getHttp} from './http';
+import {getHttp, getUserSession} from './http';
 
-const get = async ({latitude, longitude}) => {
+const get = async () => {
   const {success, data} = await getHttp(`users`);
-
-  if (success) {
-    console.log(success)
-  }
+  return success ? data : null;
 };
 
 export default {

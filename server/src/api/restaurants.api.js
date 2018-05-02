@@ -1,6 +1,8 @@
-const {getRestaurants} = require('../services');
+const {getRestaurantImage, getRestaurants} = require('../services');
 const {AUTHORIZATION_HEADER} = require('../config');
 const {headers} = require('../utils');
+const {http} = require('../utils');
+const {statusCodes} = http;
 
 const getEndpoint = async(req, res) => {
   const sessionToken = headers.get({req, key: AUTHORIZATION_HEADER});
@@ -11,11 +13,24 @@ const getEndpoint = async(req, res) => {
   if (result.success) {
     res.send(result);
   } else {
-    res.status(401).send(result);
+    res.status(statusCodes.UNAUTHORIZED).send(result);
+  }
+};
+
+const getImageEndpoint = async (req, res) => {
+  const {name} = req.params;
+  
+  const result = await getRestaurantImage({name});
+
+  if (result.success) {
+    res.send(result);
+  } else {
+    res.status(statusCodes.NOT_FOUND).send(result);
   }
 };
 
 module.exports = (router) => {
   router.get('/', getEndpoint);
+  router.get('/image/:name', getImageEndpoint);
   return router;
 };
