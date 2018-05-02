@@ -4,6 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/brunocanepa/pedidos-ya",
   "author": "Bruno Cánepa",
+  "scripts": {
+    "server": "node index"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
