@@ -1,6 +1,6 @@
-const {signIn} = require('../services');
+const {signIn, signOut} = require('../services');
 const {AUTHORIZATION_HEADER} = require('../config');
-const {http} = require('../utils');
+const {http, headers} = require('../utils');
 const {statusCodes} = http;
 
 const signInEndpoint = async(req, res) => {
@@ -16,7 +16,16 @@ const signInEndpoint = async(req, res) => {
   }
 };
 
+const signOutEndpoint = async(req, res) => {
+  const token = headers.get({req, key: AUTHORIZATION_HEADER});
+
+  const result = await signOut({token});
+
+  res.send(result);
+};
+
 module.exports = (router) => {
   router.post('/', signInEndpoint);
+  router.delete('/', signOutEndpoint);
   return router;
 };

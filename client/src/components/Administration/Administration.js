@@ -6,9 +6,12 @@ import styles from './styles';
 import ButtonForm from '../ButtonForm';
 import dictionary from '../../localization';
 
-const Administration = function({onSignOut, signOutNextRoute}) {
+const Administration = function({onSignOut, signOutNextRoute, onlineUsersCount}) {
   return (
     <div style={styles.content}>
+      <div style={styles.dataContent}>
+        <label>{dictionary.administration.onlineUsersCount}{onlineUsersCount}</label>
+      </div>
       <ButtonForm nextRoute={signOutNextRoute} onClick={onSignOut} text={dictionary.administration.signOut}/>
     </div>
   );
@@ -16,7 +19,8 @@ const Administration = function({onSignOut, signOutNextRoute}) {
 
 Administration.propTypes = {
   onSignOut: PropTypes.func.isRequired,
-  signOutNextRoute: PropTypes.string.isRequired
+  signOutNextRoute: PropTypes.string.isRequired,
+  onlineUsersCount: PropTypes.string.isRequired
 };
 
 export default container(Administration);

@@ -31,7 +31,8 @@ export default {
     administration: 'Administración'
   },
   administration : {
-    signOut: 'Salir'
+    signOut: 'Salir',
+    onlineUsersCount: 'Usuarios en línea: '
   },
   form: {
     error: 'Campos inválidos'

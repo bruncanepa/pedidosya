@@ -1,6 +1,6 @@
 const UserCountry = require('./UserCountry');
 
-function User({id, name, lastName, country }) {
+function User({id, name, lastName, country}) {
   const self = this;
   self.id = id;
   self.name = name,

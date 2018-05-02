@@ -1,20 +1,32 @@
 import React from 'react';
 
-import {sessionAPI} from '../api';
+import {sessionAPI, administrationAPI} from '../api';
 import {routes} from '../constants';
 
 const container = T => class Administration extends React.Component {
   state = {
-    signOutNextRoute: routes.signIn
+    signOutNextRoute: routes.signIn,
+    onlineUsersCount: '-'
   }
 
-  shouldComponentUpdate() {
-    return false;
+  componentDidMount() {
+    this.fetchOnlineUsersCount();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.onlineUsersCount != nextState.onlineUsersCount;
   }
 
   onSignOut = () => {
     sessionAPI.signOut();
     return {success: true};
+  }
+
+  async fetchOnlineUsersCount() {
+    const {success, data} = await administrationAPI.getOnlineUsersCount();
+    if (success) {
+      this.setState({onlineUsersCount: `${data.count}`});
+    }
   }
 
   render() {

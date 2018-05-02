@@ -1,4 +1,5 @@
 const getAppToken = require('./getAppToken.service');
+const onlineUsers = require('./onlineUsers.service');
 const {http, headers} = require('../utils');
 const {ResponseData} = require('../models');
 const {PY_SIGN_IN_URI} = require('../config');
@@ -18,6 +19,7 @@ const signIn = async({appToken, username, password}) => {
     result.success = true;
     result.data = {sessionToken: access_token, appToken};
     result.message = '';
+    onlineUsers.addSession({token: access_token});
   } 
 
   return result;
