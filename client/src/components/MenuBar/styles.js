@@ -5,7 +5,8 @@ export default {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: 30
+    height: 30,
+    borderBottom: 'solid 1px lightgrey',
   },
   link: {
     'textDecoration': 'none'
