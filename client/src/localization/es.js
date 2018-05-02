@@ -27,6 +27,8 @@ export default {
   menuBar: {
     searchRestaurants: 'Restaurantes',
     administration: 'Administración'
+  },
+  administration: {
+    signOut: 'Salir'
   }
-
 };

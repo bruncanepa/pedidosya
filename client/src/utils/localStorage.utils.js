@@ -21,7 +21,16 @@ const saveState = (state) => {
   }
 };
 
+const removeState = () => {
+  try {
+    localStorage.removeItem(item);
+  } catch (error) {
+    // Do nothing
+  }
+};
+
 export default {
   loadState,
-  saveState
+  saveState,
+  removeState
 };

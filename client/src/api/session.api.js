@@ -16,6 +16,17 @@ const signIn = async (form) => {
   return body.success;
 };
 
+const signOut = async () => {
+  const sessionToken = '';
+
+  setUserSession(sessionToken);
+  publish(events.SING_OUT);
+  localStorage.removeState();
+  
+  return true;
+};
+
 export default {
-  signIn
+  signIn,
+  signOut
 };
