@@ -8,11 +8,10 @@ const container = T => class Form extends React.Component {
 
   constructor(props) {
     super(props);
+    const {inputs} = props.form;
     this.state = {
-      inputValues: props
-        .form
-        .inputs
-        .map(i => ''),
+      inputValues: inputs
+        .map(i => i.defaultValue || ''),
       validForm: true
     };
   }

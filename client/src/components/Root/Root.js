@@ -8,15 +8,9 @@ import SearchRestaurantsForm from '../SearchRestaurantsForm';
 import Header from '../Header';
 import MenuBar from '../MenuBar';
 import RestaurantsList from '../RestaurantsList';
+import PrivateRoute from './PrivateRoute';
 import {http} from '../../api';
 import {routes} from '../../constants';
-
-const PrivateRoute = (Component, signedIn) => (
-  <Route
-    render={props => signedIn
-    ? <Component {...props}/>
-    : <Redirect to={routes.signIn}/>}/>
-);
 
 const Root = function ({signedIn}) {
   return (
@@ -27,7 +21,7 @@ const Root = function ({signedIn}) {
           <div>
             {signedIn && <Route component={MenuBar}/>}
             <Switch>
-              <Route exact={true} path={routes.signIn} component={SignInForm}/>
+              <Route exact={true} path={routes.signIn} render={() => signedIn ? <Redirect to={routes.search }/> : <SignInForm />}/>
               <Route
                 exact={true}
                 path={routes.search}
@@ -36,7 +30,14 @@ const Root = function ({signedIn}) {
                 exact={true}
                 path={routes.restaurants}
                 render={() => PrivateRoute(RestaurantsList, signedIn)}/>
-              <Route exact={true} path='*' render={() => <Redirect to={routes.signIn}/>}/>
+              <Route
+                exact={true}
+                path={routes.administration}
+                render={() => PrivateRoute(RestaurantsList, signedIn)}/>
+              <Route
+                exact={true}
+                path='*'
+                render={() => <Redirect to={signedIn ? routes.search : routes.signIn}/>}/>
             </Switch>
           </div>
         </Router>

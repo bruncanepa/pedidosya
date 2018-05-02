@@ -13,21 +13,22 @@ const parseBody = (data) => (data && JSON.stringify(data));
 
 const getURL = (url) => (`${API_SERVER_URL}/${url}`);
 
+const updateUserSessionFromStorage = () => {
+  if (!userSession) {
+    const session = localStorage.loadState();
+    session && setUserSession(session);
+  }
+};
+
 export const setUserSession = (session = '') => {
   userSession = session;
   return userSession;
 };
 
 export const getUserSession = (session = '') => {
+  updateUserSessionFromStorage();
   return userSession;
 };
-
-export const updateUserSessionFromStorage = () => {
-  if (!getUserSession()) {
-    const session = localStorage.loadState();
-    session && setUserSession(session);
-  }
-}
 
 export const getHttp = (url) => {
   return fetch(new Request(getURL(url), {
@@ -76,6 +77,5 @@ export const deleteHttp = (url) => {
 
 export default {
   getUserSession,
-  setUserSession,
-  updateUserSessionFromStorage
+  setUserSession
 };

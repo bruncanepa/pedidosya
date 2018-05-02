@@ -17,7 +17,6 @@ const container = T => class Header extends React.Component {
   }
 
   componentDidMount() {
-    http.updateUserSessionFromStorage();
     if (!this.state.user && http.getUserSession()) {
       this.fetchUserData();
     }
