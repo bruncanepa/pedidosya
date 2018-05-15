@@ -1,1 +1,0 @@
-web: cd server && yarn --ignore-engines && yarn server

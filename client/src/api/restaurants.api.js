@@ -4,7 +4,12 @@ import {publishSubscribe} from '../utils';
 const {events, publish} = publishSubscribe;
 
 const getAll = async({latitude, longitude}) => {
-  const {success, data} = await getHttp(`restaurants?lat=${latitude}&lng=${longitude}`);
+  let url = 'restaurants?';
+
+  if (latitude) url = `${url}lat=${latitude}&`;
+  if (longitude) url = `${url}lng=${longitude}`;
+  
+  const {success, data} = await getHttp(url);
 
   return {success, data, latitude, longitude};
 };

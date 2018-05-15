@@ -1,32 +1,57 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import container from '../../containers/RestaurantsList.container';
+import container from '../../containers/ShouldNotUpdate.container';
 import styles from './styles';
 import RestaurantItem from '../RestaurantItem';
 import {restaurantPropTypes} from '../../propTypes';
 import dictionary from '../../localization';
 import {formatString} from '../../utils';
+import {restaurantsAPI} from '../../api';
+import {query as queryUtil} from '../../utils';
 
 const {restaurantsList} = dictionary;
 
-const RestaurantList = function ({restaurants, latitude, longitude}) {
-  return (
-    <div style={styles.content}>
-      <h2>{restaurantsList.title}</h2>
-      <label style={styles.infoLabel}>{formatString(restaurantsList.zone, latitude, longitude)}</label>
-      <div style={styles.listContent}>
-        {restaurants.map(restaurant => (<RestaurantItem key={restaurant.name} restaurant={restaurant}/>))}
-        {restaurants.length == 0 && <label>{restaurantsList.noItems}</label>}
-      </div>
-    </div>
-  );
-};
+class RestaurantList extends React.PureComponent {
+  
+  coordinates = {latitude: '', longitude: ''}
 
-RestaurantList.Proptype = {
-  restaurants: PropTypes.arrayOf(restaurantPropTypes),
-  latitude: PropTypes.string.isRequired,
-  longitude: PropTypes.string.isRequired,
-};
+  state = {restaurants: [], ...this.coordinates, fetched: false, fetching: false}
+
+  async componentDidMount() {
+    if (!this.state.fetched) {
+      const coordinates = this.getData(this.props);
+      this.setState({...coordinates, fetching: true});
+      const {data} = await restaurantsAPI.getAll(coordinates);
+      this.setState({fetched: true, fetching: false, restaurants: data.restaurants || []});
+    }
+  }
+
+  getData(props) {
+    const {query, search} = props.location;
+    let data = this.coordinates;
+    if (query) {
+      const {longitude, latitude} = query;
+      data = {latitude, longitude};
+    } else if (search) {
+      const {lng, lat} = queryUtil.parse(search);
+      data = {latitude: lat, longitude: lng};
+    } 
+    return data;
+  }
+
+  render(){
+    const {restaurants, latitude, longitude, fetching} = this.state;
+    return (
+      <div style={styles.content}>
+        <h2>{restaurantsList.title}</h2>
+        <div style={styles.listContent}>
+          {restaurants.map(restaurant => (<RestaurantItem key={restaurant.name} restaurant={restaurant}/>))}
+          {!fetching && restaurants.length == 0 && <label>{restaurantsList.noItems}</label>}
+          {fetching && <label>{dictionary.form.loading}</label>}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default container(RestaurantList);

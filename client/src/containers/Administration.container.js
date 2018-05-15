@@ -4,10 +4,8 @@ import {sessionAPI, administrationAPI} from '../api';
 import {routes} from '../constants';
 
 const container = T => class Administration extends React.Component {
-  state = {
-    signOutNextRoute: routes.signIn,
-    onlineUsersCount: '-'
-  }
+  
+  state = {onlineUsersCount: '-'}
 
   componentDidMount() {
     this.fetchOnlineUsersCount();
@@ -17,7 +15,7 @@ const container = T => class Administration extends React.Component {
     return this.state.onlineUsersCount != nextState.onlineUsersCount;
   }
 
-  onSignOut = () => {
+  onSignOut() {
     sessionAPI.signOut();
     return {success: true};
   }
@@ -29,9 +27,17 @@ const container = T => class Administration extends React.Component {
     }
   }
 
+  signOutNextRoute() { 
+    return routes.signIn; 
+  }
+
   render() {
     return (
-      <T {...this.props} {...this.state} onSignOut={this.onSignOut} />
+      <T 
+        {...this.props}
+        {...this.state} 
+        signOutNextRoute={this.signOutNextRoute} 
+        onSignOut={this.onSignOut} />
     )
   }
 };

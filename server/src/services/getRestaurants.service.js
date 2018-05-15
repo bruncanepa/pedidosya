@@ -27,7 +27,9 @@ module.exports = async({sessionToken, lat, lng}) => {
     result.data = {
       restaurants: data.data
         .map(restaurant => new Restaurant(restaurant))
-        .sort((a, b) => (b.rating - a.rating))
+        .sort((a, b) => (b.rating - a.rating)),
+      latitude: lat,
+      longitude: lng
     };
   }
 

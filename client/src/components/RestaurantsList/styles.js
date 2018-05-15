@@ -14,10 +14,9 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 30,
     flexDirection: 'column'
   },
-  infoLabel : {
+  labelInfo : {
     fontWeight: 'bold',
     fontSize: 12
   }

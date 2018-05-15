@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import container from '../../containers/MenuBar.container';
+import container from '../../containers/ShouldNotUpdate.container';
 import styles from './styles';
 import dictionary from '../../localization';
 import {routes} from '../../constants';

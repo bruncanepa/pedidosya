@@ -19,7 +19,7 @@ const Administration = function({onSignOut, signOutNextRoute, onlineUsersCount})
 
 Administration.propTypes = {
   onSignOut: PropTypes.func.isRequired,
-  signOutNextRoute: PropTypes.string.isRequired,
+  signOutNextRoute: PropTypes.func.isRequired,
   onlineUsersCount: PropTypes.string.isRequired
 };
 

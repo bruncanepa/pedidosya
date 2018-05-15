@@ -35,6 +35,7 @@ export default {
     onlineUsersCount: 'Usuarios en línea: '
   },
   form: {
-    error: 'Campos inválidos'
+    error: 'Campos inválidos',
+    loading: 'Cargando...'
   }
 };

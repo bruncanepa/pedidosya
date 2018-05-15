@@ -28,7 +28,7 @@ const form = {
   send: {
     text: signInForm.send,
     callback: async(form) => await sessionAPI.signIn(form),
-    nextRoute: routes.search
+    nextRoute: () => routes.search
   }
 };
 
@@ -39,7 +39,7 @@ const container = T => class SignInForm extends React.Component {
   }
 
   render() {
-    return (<T form={form}/>)
+    return <T form={form}/>;
   }
 };
 

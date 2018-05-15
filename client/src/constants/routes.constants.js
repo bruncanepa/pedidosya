@@ -1,6 +1,6 @@
 export default {
   search: '/search',
-  restaurants: '/restaurants',
+  restaurants: '/search?lat=:lat&lng=:lng',
   signIn: '/',
   administration: '/administration'
 };

@@ -27,8 +27,8 @@ const form = {
   ],
   send: {
     text: searchRestaurantsForm.send,
-    callback: async(data) => await restaurantsAPI.getAll(data),
-    nextRoute: routes.restaurants
+    callback: async(data) => ({success: true, ...data}),
+    nextRoute: ({latitude, longitude}) => `${routes.search}?lat=${latitude}&lng=${longitude}`
   }
 };
 
@@ -39,7 +39,7 @@ const container = T => class SearchRestaurantsForm extends React.Component {
   }
 
   render() {
-    return (<T form={form}/>)
+    return <T form={form}/>;
   }
 };
 
