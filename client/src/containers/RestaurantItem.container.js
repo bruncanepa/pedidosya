@@ -29,7 +29,7 @@ const container = T => class Restaurant extends React.Component {
   }
 
   render() {
-    return (<T {...this.props} {...this.state}/>)
+    return <T {...this.props} {...this.state}/>
   }
 };
 

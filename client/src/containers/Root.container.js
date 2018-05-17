@@ -11,7 +11,7 @@ const container = T => class Root extends React.Component {
     this.state = {signedIn: !!http.getUserSession()};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.unsubscribeSignIn = subscribe(events.SIGN_IN, this.onSignIn);
     this.unsubscribeSignOut = subscribe(events.SING_OUT, this.onSignOut);
   }
@@ -34,7 +34,7 @@ const container = T => class Root extends React.Component {
   }
 
   render() {
-    return <T {...this.state} />;
+    return <T {...this.state} />
   }
 };
 

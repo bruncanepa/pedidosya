@@ -14,7 +14,8 @@
     "compression": "^1.7.2",
     "express": "^4.16.3",
     "helmet": "^3.12.0",
-    "method-override": "^2.3.10"
+    "method-override": "^2.3.10",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.17.4"

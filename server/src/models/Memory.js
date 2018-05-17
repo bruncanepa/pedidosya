@@ -1,10 +1,12 @@
+const uuid = require('../utils/uuid.util');
+
 const RESTAURANTS_MAX_SEARCHES = 10;
 
 function Memory() {
   const self = this;
   self.users = {/* userId: { sessions: {token} }*/};
   self.onlineUsers = 0;
-  self.restaurants = {searches: [/*{latitude, longitude}*/]};
+  self.restaurants = {searches: [/*{latitude, longitude, id}*/]};
 };
 
 Memory.prototype.addSession = function({userId, token}){
@@ -41,7 +43,7 @@ Memory.prototype.getRestaurantsLastSearches = function() {
 Memory.prototype.addRestaurantSearch = function(search) {
   const {searches} = this.restaurants;
   searches.length >= RESTAURANTS_MAX_SEARCHES && searches.shift();
-  searches.push(search);
+  searches.push(Object.assign(search, {id: uuid('search')}));
 };
 
 const memory = new Memory();

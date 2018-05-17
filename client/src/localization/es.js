@@ -32,7 +32,10 @@ export default {
   },
   administration : {
     signOut: 'Salir',
-    onlineUsersCount: 'Usuarios en línea: '
+    onlineUsersCount: 'Usuarios en línea: ',
+    restaurantSearches: {
+      title: 'Últimas búsquedas'
+    }
   },
   form: {
     error: 'Campos inválidos',

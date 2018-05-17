@@ -3,16 +3,12 @@ import React from 'react';
 import {sessionAPI, administrationAPI} from '../api';
 import {routes} from '../constants';
 
-const container = T => class Administration extends React.Component {
+const container = T => class Administration extends React.PureComponent {
   
   state = {onlineUsersCount: '-', searches: []}
 
   componentDidMount() {
     this.fetchOnlineUsersCount();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.onlineUsersCount != nextState.onlineUsersCount;
   }
 
   onSignOut() {
@@ -35,10 +31,10 @@ const container = T => class Administration extends React.Component {
   render() {
     return (
       <T 
-        {...this.props}
         {...this.state} 
         signOutNextRoute={this.signOutNextRoute} 
-        onSignOut={this.onSignOut} />
+        onSignOut={this.onSignOut} 
+      />
     )
   }
 };

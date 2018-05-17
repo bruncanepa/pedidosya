@@ -39,7 +39,7 @@ const container = T => class SearchRestaurantsForm extends React.Component {
   }
 
   render() {
-    return <T form={form}/>;
+    return <T form={form}/>
   }
 };
 

@@ -17,6 +17,7 @@ const form = {
       text: signInForm.username,
       type: 'email',
       validate: (username) => !validator.isNullOrEmpty(username),
+      validate: (username) => !validator.isNullOrEmpty(username),
       validate: (username) => !validator.isNullOrEmpty(username)
     }, {
       name: 'password',
@@ -40,7 +41,7 @@ const container = T => class SignInForm extends React.Component {
   }
 
   render() {
-    return <T form={form}/>;
+    return <T form={form}/>
   }
 };
 

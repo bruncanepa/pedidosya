@@ -12,7 +12,7 @@ import {query as queryUtil} from '../../utils';
 
 const {restaurantsList} = dictionary;
 
-class RestaurantList extends React.PureComponent {
+class Restaurants extends React.PureComponent {
   
   coordinates = {latitude: '', longitude: ''}
 
@@ -55,4 +55,4 @@ class RestaurantList extends React.PureComponent {
   }
 }
 
-export default container(RestaurantList);
+export default container(Restaurants);

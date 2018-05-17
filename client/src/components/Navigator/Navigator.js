@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 
 import SearchRestaurantsForm from '../SearchRestaurantsForm';
 import MenuBar from '../MenuBar';
-import RestaurantsList from '../RestaurantsList';
+import Restaurants from '../Restaurants';
 import Administration from '../Administration';
 import PrivateRoute from './PrivateRoute';
 import HomeRoute from './HomeRoute';
@@ -22,10 +22,10 @@ const Navigator = function ({signedIn}) {
           <Route
             exact
             path={routes.search}
-            render={({history}) => history.location.search ? PrivateRoute(RestaurantsList, signedIn) : PrivateRoute(SearchRestaurantsForm, signedIn)}/>
+            render={({history}) => history.location.search ? PrivateRoute(Restaurants, signedIn) : PrivateRoute(SearchRestaurantsForm, signedIn)}/>
           <Route
             path={routes.restaurants}
-            render={() => PrivateRoute(RestaurantsList, signedIn)}/>
+            render={() => PrivateRoute(Restaurants, signedIn)}/>
           <Route
             exact
             path={routes.administration}

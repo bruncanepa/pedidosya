@@ -7,9 +7,7 @@ const container = T => class ShouldNotUpdate extends React.Component {
   }
 
   render(){
-    return (
-      <T {...this.props} />
-    )
+    return <T {...this.props} />
   }
 };
 

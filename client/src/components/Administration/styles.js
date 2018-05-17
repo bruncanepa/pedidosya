@@ -9,7 +9,9 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
-    padding: '20px 10px 50px 10px'
+    flexDirection: 'row',
+  },
+  dataLabel: {
+    fontSize: 18
   }
 };

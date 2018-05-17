@@ -9,7 +9,7 @@ const container = T => class Loading extends React.PureComponent {
   }
 
   render() {
-    return <T {...this.props} />
+    return <T {...this.props}/>
   }
 };
 

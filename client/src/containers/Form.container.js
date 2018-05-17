@@ -65,7 +65,8 @@ const container = T => class Form extends React.Component {
         {...this.props}
         {...this.state}
         onTextChange={this.onTextChange}
-        onSend={this.onSend}/>
+        onSend={this.onSend}
+      />
     )
   }
 };

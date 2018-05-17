@@ -11,12 +11,10 @@ const container = T => class Header extends React.Component {
     user: null
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.unsubscribeSignIn = subscribe(events.SIGN_IN, this.onSignIn);
     this.unsubscribeSignOut = subscribe(events.SING_OUT, this.onSignOut);
-  }
-
-  componentDidMount() {
+    
     if (!this.state.user && http.getUserSession()) {
       this.fetchUserData();
     }
@@ -45,7 +43,7 @@ const container = T => class Header extends React.Component {
   }
 
   render() {
-    return (<T {...this.state}/>)
+    return <T {...this.state} />
   }
 };
 
