@@ -12,6 +12,7 @@ export default {
     flexDirection: 'row',
   },
   dataLabel: {
-    fontSize: 18
+    fontSize: 18,
+    paddingLeft: 5
   }
 };

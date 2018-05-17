@@ -8,19 +8,23 @@ import RestaurantSearchItem from '../RestaurantSearchItem';
 import Loading from '../Loading';
 import dictionary from '../../localization';
 
+const dic = dictionary.administration.restaurantSearches;
+
 const Searches = function({searches, loading}) {
+  const areSearches = !!searches.length;
   return (
     <div style={styles.content}>
-      <h3 style={styles.title}>{dictionary.administration.restaurantSearches.title}</h3>
+      <h3 style={styles.title}>{dic.title}</h3>
       <Loading show={loading}/>
-      <table>
+      {!loading && areSearches && <table>
         <tr>
-          <th>Nro</th>
-          <th>Latitud</th>
-          <th>Longitud</th>
+          <th>{dic.table.number}</th>
+          <th>{dic.table.latitude}</th>
+          <th>{dic.table.longitude}</th>
         </tr>
         {searches.map((search, i) => <RestaurantSearchItem key={search.id} {...search} i={i+1}/>)}
-      </table>
+      </table>}
+      {!loading && !areSearches && <label>{dic.noSearches}</label>}
     </div>
   )
 };

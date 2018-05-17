@@ -5,10 +5,10 @@ import {routes} from '../constants';
 
 const container = T => class Administration extends React.PureComponent {
   
-  state = {onlineUsersCount: '-', searches: []}
+  state = {onlineUsersCount: '-', searches: [], loading: true}
 
   componentDidMount() {
-    this.fetchOnlineUsersCount();
+    this.fetchData();
   }
 
   onSignOut() {
@@ -16,11 +16,13 @@ const container = T => class Administration extends React.PureComponent {
     return {success: true};
   }
 
-  async fetchOnlineUsersCount() {
+  async fetchData() {
     const {success, data} = await administrationAPI.getAdminInfo();
     if (success) {
       const {onlineUsers, searches} = data;
-      this.setState({onlineUsersCount: `${onlineUsers.count}`, searches: searches.last});
+      this.setState({onlineUsersCount: `${onlineUsers.count}`, searches: searches.last, loading: false});
+    } else {
+      this.setState({loading: false});
     }
   }
 

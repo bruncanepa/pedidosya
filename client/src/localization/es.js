@@ -34,7 +34,13 @@ export default {
     signOut: 'Salir',
     onlineUsersCount: 'Usuarios en línea: ',
     restaurantSearches: {
-      title: 'Últimas búsquedas'
+      title: 'Últimas búsquedas',
+      table:{ 
+        number: 'Nro',
+        latitude: 'Latitud',
+        longitude: 'Longitud'
+      },
+      noSearches: 'No hay búsquedas recientes'
     }
   },
   form: {
