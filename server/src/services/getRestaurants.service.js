@@ -1,5 +1,5 @@
 const {http, headers} = require('../utils');
-const {ResponseData, Restaurant} = require('../models');
+const {ResponseData, Restaurant, Memory} = require('../models');
 const {PY_GET_RESTAURANTS_URI} = require('../config');
 const dictionary = require('../localization');
 
@@ -31,6 +31,7 @@ module.exports = async({sessionToken, lat, lng}) => {
       latitude: lat,
       longitude: lng
     };
+    Memory.addRestaurantSearch({latitude: lat, longitude: lng});
   }
 
   return new ResponseData(result);

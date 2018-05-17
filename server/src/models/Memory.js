@@ -1,7 +1,10 @@
+const RESTAURANTS_MAX_SEARCHES = 10;
+
 function Memory() {
   const self = this;
   self.users = {/* userId: { sessions: {token} }*/};
   self.onlineUsers = 0;
+  self.restaurants = {searches: [/*{latitude, longitude}*/]};
 };
 
 Memory.prototype.addSession = function({userId, token}){
@@ -31,4 +34,16 @@ Memory.prototype.getOnlineUsersCount = function() {
   return this.onlineUsers;
 };
 
-module.exports = Memory;
+Memory.prototype.getRestaurantsLastSearches = function() {
+  return this.restaurants.searches;
+};
+
+Memory.prototype.addRestaurantSearch = function(search) {
+  const {searches} = this.restaurants;
+  searches.length >= RESTAURANTS_MAX_SEARCHES && searches.shift();
+  searches.push(search);
+};
+
+const memory = new Memory();
+
+module.exports = memory;

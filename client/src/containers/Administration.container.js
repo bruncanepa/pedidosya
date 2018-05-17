@@ -5,7 +5,7 @@ import {routes} from '../constants';
 
 const container = T => class Administration extends React.Component {
   
-  state = {onlineUsersCount: '-'}
+  state = {onlineUsersCount: '-', searches: []}
 
   componentDidMount() {
     this.fetchOnlineUsersCount();
@@ -23,7 +23,8 @@ const container = T => class Administration extends React.Component {
   async fetchOnlineUsersCount() {
     const {success, data} = await administrationAPI.getAdminInfo();
     if (success) {
-      this.setState({onlineUsersCount: `${data.onlineUsers.count}`});
+      const {onlineUsers, searches} = data;
+      this.setState({onlineUsersCount: `${onlineUsers.count}`, searches: searches.last});
     }
   }
 

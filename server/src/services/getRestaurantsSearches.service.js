@@ -1,5 +1,6 @@
-const {ResponseData} = require('../models');
+const {ResponseData, Memory} = require('../models');
+const getUser = require('./getUser.service');
 
 module.exports = async() => {
-  return new ResponseData({success: true});
+  return new ResponseData({success: true, data: { last: Memory.getRestaurantsLastSearches()}});
 };

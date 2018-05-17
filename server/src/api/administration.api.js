@@ -27,13 +27,12 @@ const getAdministrationInfo = async(req, res) => {
   ]); 
   
   if (usersCount.success) {
-    const response = new ResponseData({success: true, data: { onlineUsers: usersCount.data, restaurantsSearches: searches.data}});
+    const response = new ResponseData({success: true, data: {onlineUsers: usersCount.data, searches: searches.data}});
     res.send(response);
   } else {
-    res.status(statusCodes.UNAUTHORIZED).send(result[0]);
+    res.status(statusCodes.UNAUTHORIZED).send(usersCount);
   }
 };
-
 
 
 module.exports = (router) => {
