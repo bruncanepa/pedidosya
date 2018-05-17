@@ -1,4 +1,4 @@
-const {getUser, onlineUsers} = require('../services');
+const {getUser, onlineUsers, getRestaurantsSearches} = require('../services');
 const {AUTHORIZATION_HEADER} = require('../config');
 const {headers} = require('../utils');
 const {http} = require('../utils');
@@ -18,20 +18,26 @@ const setRestaurantsCacheControlTime = async(req, res) => {
   }
 };
 
-const getOnlineUsersCount = async(req, res) => {
+const getAdministrationInfo = async(req, res) => {
   const sessionToken = headers.get({req, key: AUTHORIZATION_HEADER});
 
-  const result = await onlineUsers.getCount({token: sessionToken});
+  const [usersCount, searches] = await Promise.all([
+    onlineUsers.getCount({token: sessionToken}),
+    getRestaurantsSearches()
+  ]); 
   
-  if (result.success) {
-    res.send(result);
+  if (usersCount.success) {
+    const response = new ResponseData({success: true, data: { onlineUsers: usersCount.data, restaurantsSearches: searches.data}});
+    res.send(response);
   } else {
-    res.status(statusCodes.UNAUTHORIZED).send(result);
+    res.status(statusCodes.UNAUTHORIZED).send(result[0]);
   }
 };
 
+
+
 module.exports = (router) => {
   router.put('/cacheControlTime', setRestaurantsCacheControlTime);
-  router.get('/onlineUsers', getOnlineUsersCount);
+  router.get('/', getAdministrationInfo);
   return router;
 };

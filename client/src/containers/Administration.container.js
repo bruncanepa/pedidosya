@@ -21,9 +21,9 @@ const container = T => class Administration extends React.Component {
   }
 
   async fetchOnlineUsersCount() {
-    const {success, data} = await administrationAPI.getOnlineUsersCount();
+    const {success, data} = await administrationAPI.getAdminInfo();
     if (success) {
-      this.setState({onlineUsersCount: `${data.count}`});
+      this.setState({onlineUsersCount: `${data.onlineUsers.count}`});
     }
   }
 

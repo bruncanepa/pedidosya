@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {validator} from '../utils';
+
 const container = T => class Form extends React.Component {
   static propTypes = {
     form: PropTypes.object.isRequired
@@ -13,15 +15,20 @@ const container = T => class Form extends React.Component {
       inputValues: inputs
         .map(i => i.defaultValue || ''),
       validForm: true,
-      errorMessage: ''
+      errorMessage: '',
+      loading: false
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {inputValues, validForm, errorMessage} = this.state;
-    const {form} = this.props;
-    return inputValues != nextState.inputValues || validForm != nextState.validForm 
-      || form != nextProps.form || errorMessage != nextState.errorMessage;
+    return validator.shouldRender({
+      props: this.props,
+      state: this.state,
+      nextState,
+      nextProps,
+      propsToCheck: ['form'],
+      statesToCheck: ['nextState', 'validForm', 'errorMessage', 'loading']
+    });
   }
 
   onTextChange = (id) => {
@@ -43,8 +50,9 @@ const container = T => class Form extends React.Component {
         map[input.name] = inputValues[id];
         return map;
       }, {});
+      this.setState({loading: true});
       const response = await send.callback(data);
-      this.setState({errorMessage: response.message, validForm: response.success});
+      this.setState({errorMessage: response.message, validForm: response.success, loading: false});
       return response;
     }
     this.setState({validForm});
@@ -52,11 +60,13 @@ const container = T => class Form extends React.Component {
   }
 
   render() {
-    return (<T
-      {...this.props}
-      {...this.state}
-      onTextChange={this.onTextChange}
-      onSend={this.onSend}/>)
+    return (
+      <T
+        {...this.props}
+        {...this.state}
+        onTextChange={this.onTextChange}
+        onSend={this.onSend}/>
+    )
   }
 };
 

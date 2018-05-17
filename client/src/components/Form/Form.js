@@ -5,6 +5,7 @@ import container from '../../containers/Form.container';
 import styles from './styles';
 import InputForm from '../InputForm';
 import ButtonForm from '../ButtonForm';
+import Loading from '../Loading';
 import dictionary from '../../localization';
 
 class Form extends React.Component {
@@ -16,11 +17,12 @@ class Form extends React.Component {
     onTextChange: PropTypes.func.isRequired,
     onSend: PropTypes.func.isRequired,
     validForm: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    loading: PropTypes.bool,
   }
 
   render() {
-    const {form, inputValues, onTextChange, onSend, validForm, errorMessage} = this.props;
+    const {form, inputValues, onTextChange, onSend, validForm, errorMessage, loading} = this.props;
     const {title, inputs, send} = form;
     return (
       <div style={styles.content}>
@@ -42,6 +44,7 @@ class Form extends React.Component {
           {!validForm && <label style={styles.errorLabel}>{errorMessage || dictionary.form.error} </label>}
         </div>
         <ButtonForm onClick={onSend} text={send.text} nextRoute={send.nextRoute} event={send.event}/>
+        <Loading overlay show={send.showLoading && loading} />
       </div>
     );
   }

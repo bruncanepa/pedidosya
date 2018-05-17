@@ -28,7 +28,8 @@ const form = {
   send: {
     text: signInForm.send,
     callback: async(form) => await sessionAPI.signIn(form),
-    nextRoute: () => routes.search
+    nextRoute: () => routes.search,
+    showLoading: true
   }
 };
 

@@ -1,11 +1,11 @@
 import {getHttp} from './http';
 
-const getOnlineUsersCount = async() => {
-  const result = await getHttp(`administration/onlineUsers`);
+const getAdminInfo = async() => {
+  const result = await getHttp(`administration/`);
   return result; 
 };
 
 
 export default {
-  getOnlineUsersCount
+  getAdminInfo
 };

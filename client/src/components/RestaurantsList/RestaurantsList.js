@@ -3,6 +3,7 @@ import React from 'react';
 import container from '../../containers/ShouldNotUpdate.container';
 import styles from './styles';
 import RestaurantItem from '../RestaurantItem';
+import Loading from '../Loading';
 import {restaurantPropTypes} from '../../propTypes';
 import dictionary from '../../localization';
 import {formatString} from '../../utils';
@@ -47,7 +48,7 @@ class RestaurantList extends React.PureComponent {
         <div style={styles.listContent}>
           {restaurants.map(restaurant => (<RestaurantItem key={restaurant.name} restaurant={restaurant}/>))}
           {!fetching && restaurants.length == 0 && <label>{restaurantsList.noItems}</label>}
-          {fetching && <label>{dictionary.form.loading}</label>}
+          <Loading show={fetching}/>
         </div>
       </div>
     );
