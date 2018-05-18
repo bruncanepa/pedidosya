@@ -1,5 +1,5 @@
 const {getUser, onlineUsers, getRestaurantsSearches} = require('../services');
-const {AUTHORIZATION_HEADER} = require('../config');
+const {AUTHORIZATION_HEADER, RESTAURANTS_CACHE_CONTROL_TIME_KEY} = require('../config');
 const {headers} = require('../utils');
 const {http} = require('../utils');
 const {statusCodes} = http;
@@ -11,7 +11,7 @@ const setRestaurantsCacheControlTime = async(req, res) => {
   
   if (result.success) {
     const time = parseFloat(req.body.time);
-    process.env['RESTAURANTS_CACHE_CONTROL_TIME'] = time;
+    process.env[RESTAURANTS_CACHE_CONTROL_TIME_KEY] = time;
     res.send(new ResponseData({success: true, data: {time}}));
   } else {
     res.status(statusCodes.UNAUTHORIZED).send(result);
