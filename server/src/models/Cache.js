@@ -1,5 +1,6 @@
 const uuid = require('../utils/uuid.util');
 const redis = require('../utils/redis.util');
+const config = require('../config');
 
 const RESTAURANTS_MAX_LAST_SEARCHES = 10;
 
@@ -7,8 +8,9 @@ const keys = {
   lastRestaurantsSearches: 'last_restaurants_searches',
   onlineUsers: 'online_users',
   onlineUsersCount: 'online_users_count',
-  restaurant: 'restaurant',
-  user: 'user'
+  restaurantPrefix: 'restaurant',
+  userPrefix: 'user',
+  restaurantsCacheTime: 'restaurants_cache_time'
 };
 
 function Cache() {
@@ -77,21 +79,39 @@ Cache.prototype.addRestaurantSearch = async function(search) {
   const value = {id: uuid('search'), latitude, longitude};
 
   this.data.rightPush({key: keys.lastRestaurantsSearches, value});
-  this.data.set({key: getRestaurantKey(search), value: search.restaurants});
+  this.data.set({key: getRestaurantKey(search), value: search.restaurants, expires: true});
 };
 
 Cache.prototype.getRestaurants = function(coordinates) {
   return this.data.get({key: getRestaurantKey(coordinates)});
 };
 
+Cache.prototype.getRestaurantsCacheTime = function() {
+  return process.env[config.RESTAURANTS_CACHE_CONTROL_TIME_KEY];
+};
+
+Cache.prototype.setRestaurantsCacheTime = function(time) {
+  this.data.set({key: keys.restaurantsCacheTime, value: time});
+  process.env[config.RESTAURANTS_CACHE_CONTROL_TIME_KEY] = time;
+};
+
 const getRestaurantKey = ({latitude, longitude}) => {
-  return `${keys.restaurant}_${latitude},${longitude}`;
+  return `${keys.restaurantPrefix}_${latitude},${longitude}`;
 };
 
 const getUserKey = ({userId}) => {
-  return `${keys.user}_${userId}`;
+  return `${keys.userPrefix}_${userId}`;
 };
 
 const cache = new Cache();
+
+const loadRestaurantsCacheTime = async() => {
+  const time = await cache.data.get({key: keys.restaurantsCacheTime});
+  if (time !== null) {
+    process.env[config.RESTAURANTS_CACHE_CONTROL_TIME_KEY] = time;
+  }
+};
+
+loadRestaurantsCacheTime();
 
 module.exports = cache;

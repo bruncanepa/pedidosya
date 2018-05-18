@@ -16,7 +16,7 @@ const connect = () => {
   return client;
 };
 
-const set = (client) => ({key, value, expires = true}) => {
+const set = (client) => ({key, value, expires = false}) => {
   const expirationTime = process.env[RESTAURANTS_CACHE_CONTROL_TIME_KEY];
   const parsedValue = JSON.stringify(value);
 
