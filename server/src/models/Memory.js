@@ -10,8 +10,17 @@ function Memory() {
   self.restaurants = {searches: [/*{latitude, longitude, id}*/], data: redis()};
 };
 
+Memory.prototype.getUser = function(userId) {
+  return this.users[userId];
+};
+
+Memory.prototype.getSession = function({userId, token}) {
+  const user = this.getUser(userId);
+  return user && user.sessions[token];
+};
+
 Memory.prototype.addSession = function({userId, token}){
-  let user = this.users[userId];
+  let user = this.getUser(userId);
   if (user) {
     user.sessions[token] = token;
   } else {
@@ -22,7 +31,8 @@ Memory.prototype.addSession = function({userId, token}){
 };
 
 Memory.prototype.removeSession = function({userId, token}) {
-  const user = this.users[userId];
+  const user = this.getUser(userId);
+  
   if (user) {
     delete user.sessions[token];
     if (Object.keys(user.sessions).length == 0) {
@@ -31,6 +41,10 @@ Memory.prototype.removeSession = function({userId, token}) {
     }
   }
   return this.onlineUsers;
+};
+
+Memory.prototype.isValidSession = function({userId, token}) { 
+  return !!this.getSession({userId, token});
 };
 
 Memory.prototype.getOnlineUsersCount = function() {

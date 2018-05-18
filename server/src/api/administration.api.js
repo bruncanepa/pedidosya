@@ -1,13 +1,12 @@
 const {getUser, onlineUsers, getRestaurantsSearches} = require('../services');
-const {AUTHORIZATION_HEADER, RESTAURANTS_CACHE_CONTROL_TIME_KEY} = require('../config');
-const {headers} = require('../utils');
-const {http} = require('../utils');
+const {AUTHORIZATION_HEADER, RESTAURANTS_CACHE_CONTROL_TIME_KEY, USER_ID_HEADER} = require('../config');
+const {headers, http} = require('../utils');
 const {statusCodes} = http;
-const {ResponseData} = require('../models');
+const {ResponseData, Memory} = require('../models');
 
 const setRestaurantsCacheControlTime = async(req, res) => {
-  const sessionToken = headers.get({req, key: AUTHORIZATION_HEADER});
-  const result = await getUser({sessionToken});
+  const token = headers.get({req, key: AUTHORIZATION_HEADER});
+  const result = await getUser({token});
   
   if (result.success) {
     const time = parseFloat(req.body.time);
@@ -19,11 +18,12 @@ const setRestaurantsCacheControlTime = async(req, res) => {
 };
 
 const getAdministrationInfo = async(req, res) => {
-  const sessionToken = headers.get({req, key: AUTHORIZATION_HEADER});
-
+  const token = headers.get({req, key: AUTHORIZATION_HEADER});
+  const userId = headers.get({req, key: USER_ID_HEADER});
+  
   const [usersCount, searches] = await Promise.all([
-    onlineUsers.getCount({token: sessionToken}),
-    getRestaurantsSearches()
+    onlineUsers.getCount({token, userId}),
+    getRestaurantsSearches({token, userId})
   ]); 
   
   if (usersCount.success) {

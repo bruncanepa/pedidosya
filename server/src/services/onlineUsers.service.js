@@ -1,22 +1,29 @@
 const {Memory, ResponseData} = require('../models');
 const getUser = require('./getUser.service');
+const dictionary = require('../localization');
+const validateSession = require('./validateSession.service');
 
 module.exports = {
-  getCount: async({token}) => {
-    const {success, data, message} = await getUser({sessionToken: token});
-
+  getCount: async({token, userId}) => {
+    const {success, message} = await validateSession({userId, token});
     if (success) {
       return new ResponseData({data: {count: Memory.getOnlineUsersCount()}, success});
     }
-    return {success, message};
+    return new ResponseData({success, message});
   },
   addSession: async({token}) => {
-    const {success, data} = await getUser({sessionToken: token});
-
+    const {success, data, message} = await getUser({token: token});
     if (success) {
       const userId = data.user.id;
-      return Memory.addSession({userId, token});
+      Memory.addSession({userId, token});
     }
+    return new ResponseData({success, message});
   },
-  removeSession: ({userId, token}) => Memory.removeSession({userId, token})
+  removeSession: async({token, userId}) => {
+    const {success, message} = await validateSession({userId, token});
+    if (success) {
+      Memory.removeSession({userId, token}); 
+    }
+    return new ResponseData({success, message});
+  }
 };

@@ -1,5 +1,5 @@
 const {signIn, signOut} = require('../services');
-const {AUTHORIZATION_HEADER} = require('../config');
+const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
 const {http, headers} = require('../utils');
 const {statusCodes} = http;
 
@@ -18,8 +18,9 @@ const signInEndpoint = async(req, res) => {
 
 const signOutEndpoint = async(req, res) => {
   const token = headers.get({req, key: AUTHORIZATION_HEADER});
+  const userId = headers.get({req, key: USER_ID_HEADER});
 
-  const result = await signOut({token});
+  const result = await signOut({token, userId});
 
   res.send(result);
 };

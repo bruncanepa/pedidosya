@@ -1,5 +1,5 @@
 const {getRestaurantImage, getRestaurants} = require('../services');
-const {AUTHORIZATION_HEADER} = require('../config');
+const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
 const {headers} = require('../utils');
 const {http} = require('../utils');
 const {statusCodes} = http;
@@ -9,10 +9,12 @@ const DEFAULT_COORDINATE_VALUE = '0'
 const getCoordinateValue = (value = DEFAULT_COORDINATE_VALUE) => value;
 
 const getEndpoint = async(req, res) => {
-  const sessionToken = headers.get({req, key: AUTHORIZATION_HEADER});
+  const token = headers.get({req, key: AUTHORIZATION_HEADER});
+  const userId = headers.get({req, key: USER_ID_HEADER});
+  
   const {lat, lng} = req.query;
   
-  const result = await getRestaurants({sessionToken, lat: getCoordinateValue(lat) , lng: getCoordinateValue(lng)});
+  const result = await getRestaurants({token, userId, lat: getCoordinateValue(lat) , lng: getCoordinateValue(lng)});
 
   if (result.success) {
     res.send(result);

@@ -1,6 +1,7 @@
-const item = 'userSession';
+export const SESSION_KEY = 'userSession';
+export const USER_ID_KEY = 'userId';
 
-const loadState = () => {
+const loadState = (item = SESSION_KEY) => {
   try {
     const serializedState = localStorage.getItem(item);
     if (serializedState === null) {
@@ -12,7 +13,7 @@ const loadState = () => {
   }
 };
 
-const saveState = (state) => {
+const saveState = (state, item = SESSION_KEY) => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem(item, serializedState);
@@ -21,7 +22,7 @@ const saveState = (state) => {
   }
 };
 
-const removeState = () => {
+const removeState = (item = SESSION_KEY) => {
   try {
     localStorage.removeItem(item);
   } catch (error) {
@@ -32,5 +33,7 @@ const removeState = () => {
 export default {
   loadState,
   saveState,
-  removeState
+  removeState,
+  SESSION_KEY,
+  USER_ID_KEY
 };

@@ -17,11 +17,10 @@ const signIn = async (form) => {
 };
 
 const signOut = async () => {
-  const sessionToken = '';
-
-  setUserSession(sessionToken);
+  setUserSession();
   publish(events.SING_OUT);
   localStorage.removeState();
+  localStorage.removeState(localStorage.USER_ID_KEY);
   
   return true;
 };

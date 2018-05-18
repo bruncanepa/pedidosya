@@ -5,10 +5,10 @@ const dictionary = require('../localization');
 
 const url = PY_GET_USER_URI;
 
-module.exports = async({sessionToken}) => {
+module.exports = async({token}) => {
   const result = {success: false, message: dictionary.invalidSessionToken};
   
-  const {success, data} = await http.get({url, headers: headers.create(sessionToken)});
+  const {success, data} = await http.get({url, headers: headers.create(token)});
 
   if (success) {
     result.success = true;

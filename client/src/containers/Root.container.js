@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {http} from '../api';
-import {publishSubscribe, localStorage} from '../utils';
+import {publishSubscribe} from '../utils';
 
 const {events, subscribe} = publishSubscribe;
 

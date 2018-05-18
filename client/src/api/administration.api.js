@@ -5,7 +5,6 @@ const getAdminInfo = async() => {
   return result; 
 };
 
-
 export default {
   getAdminInfo
 };

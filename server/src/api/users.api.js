@@ -5,8 +5,8 @@ const {http} = require('../utils');
 const {statusCodes} = http;
 
 const getEndpoint = async(req, res) => {
-  const sessionToken = headers.get({req, key: AUTHORIZATION_HEADER});
-  const result = await getUser({sessionToken});
+  const token = headers.get({req, key: AUTHORIZATION_HEADER});
+  const result = await getUser({token});
 
   if (result.success) {
     res.send(result);
