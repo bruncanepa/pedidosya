@@ -35,6 +35,14 @@ const get = (client) => ({key}) => {
   });
 };
 
+const remove = (client) => ({key}) => {
+  return new Promise((resolve, reject) => {
+    client.del(key, (err, reply) => {
+      err ? reject(err) : resolve(reply);
+    });
+  });
+};
+
 const getList = (client) => ({key}) => {
   return new Promise((resolve, reject) => {
     client.lrange(key, 0, -1, (err, reply) => {
@@ -59,13 +67,50 @@ const leftPop = (client) => ({key}) => {
   });
 };
 
+const setHash = (client) => ({key, value}) => {
+  return new Promise((resolve, reject) => {
+    client.hmset(key, value, (err, reply) => {
+      err ? reject(err) : resolve(reply);
+    });
+  });
+};
+
+const getHash = (client) => ({key}) => {
+  return new Promise((resolve, reject) => {
+    client.hgetall(key, (err, reply) => {
+      err ? reject(err) : resolve(reply);
+    });
+  });
+};
+
+const updateHash = (client) => ({key, field, value}) => {
+  return new Promise((resolve, reject) => {
+    client.hset(key, field, value, (err, reply) => {
+      err ? reject(err) : resolve(reply);
+    });
+  });
+};
+
+const deleteHashField = (client) => ({key, field}) => {
+  return new Promise((resolve, reject) => {
+    client.hdel(key, field, (err, reply) => {
+      err ? reject(err) : resolve(reply);
+    });
+  });
+};
+
 module.exports = () => {
   const client = connect();
   return { 
     set: set(client),
     get: get(client),
+    remove: remove(client),
     getList: getList(client),
     rightPush: rightPush(client),
-    leftPop: leftPop(client)
+    leftPop: leftPop(client),
+    setHash: setHash(client),
+    getHash: getHash(client),
+    updateHash: updateHash(client),
+    deleteHashField: deleteHashField(client)
   };
 };

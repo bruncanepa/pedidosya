@@ -1,10 +1,8 @@
 const {Cache, ResponseData} = require('../models');
 const dictionary = require('../localization');
 
-module.exports = ({userId, token}) => {
-  return new Promise((resolve) => {
-    const valid = Cache.isValidSession({userId, token});
-    const message = valid ? '' : dictionary.invalidSessionToken;
-    resolve(new ResponseData({success: valid, message}));
-  });
+module.exports = async({userId, token}) => {
+  const valid = await Cache.isValidSession({userId, token});
+  const message = valid ? '' : dictionary.invalidSessionToken;
+  return new ResponseData({success: valid, message});
 };

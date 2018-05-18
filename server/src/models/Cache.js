@@ -15,42 +15,60 @@ const keys = {
 
 function Cache() {
   const self = this;
-  self.users = {/* userId: { sessions: {token} }*/};
   self.data = redis();
+  /* DATA MODEL
+    last_restaurants_searches: [{id, latitude, longitude}]
+    online_users: number
+    restaurants_cache_time: number
+    restaurant_${latitude}_${longitude}: [Restaurant]
+    user_${userId}: {session1, ..., sessionN}
+  */
 };
 
 Cache.prototype.getUser = function(userId) {
-  return this.users[userId];
+  return this.data.getHash({key: getUserKey({userId})});
 };
 
-Cache.prototype.getSession = function({userId, token}) {
-  const user = this.getUser(userId);
-  return user && user.sessions[token];
+Cache.prototype.addUser = function({userId, token}) {
+  this.updateUsersOnlineCount();
+  this.data.setHash({key: getUserKey({userId}), value: {[token]: token}});
+};
+
+Cache.prototype.removeUser = function({userId}) {
+  this.updateUsersOnlineCount(false);
+  this.data.remove({key: getUserKey({userId})});
+};
+
+Cache.prototype.getSession = async function({userId, token}) {
+  const user = await this.getUser(userId);
+  return user && user[token];
 };
 
 Cache.prototype.addSession = async function({userId, token}){
-  let user = this.getUser(userId);
+  let user = await this.getUser(userId);
+  const key = getUserKey({userId});
   if (user) {
-    user.sessions[token] = token;
+    this.data.updateHash({key, field: token, value: token});
   } else {
-    await this.updateUsersOnlineCount();
-    user = this.users[userId] = {sessions: {[token]: token}};
+    this.addUser({userId, token});
   }
 };
 
 Cache.prototype.removeSession = async function({userId, token}) {
-  const user = this.getUser(userId);
+  const user = await this.getUser(userId);
   if (user) {
-    delete user.sessions[token];
-    if (Object.keys(user.sessions).length == 0) {
-      await this.updateUsersOnlineCount(false);
-      delete this.users[userId]
+    const key = getUserKey({userId});
+    if (Object.keys(user).length == 1) {
+      this.removeUser({userId});
+    } else {
+      this.data.deleteHashField({key, field: token});
     }
   }
 };
 
-Cache.prototype.isValidSession = function({userId, token}) { 
-  return !!this.getSession({userId, token});
+Cache.prototype.isValidSession = async function({userId, token}) { 
+  const session = await this.getSession({userId, token});
+  return !!session;
 };
 
 Cache.prototype.getOnlineUsersCount = async function() {
