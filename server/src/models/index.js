@@ -3,7 +3,7 @@ const ResponseData = require('./ResponseData');
 const User = require('./User');
 const UserCountry = require('./UserCountry');
 const Restaurant = require('./Restaurant');
-const Memory = require('./Memory');
+const Cache = require('./Cache');
 
 
 module.exports = {
@@ -12,5 +12,5 @@ module.exports = {
   User,
   UserCountry,
   Restaurant,
-  Memory
+  Cache
 };

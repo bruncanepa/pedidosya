@@ -3,23 +3,23 @@ const redis = require('../utils/redis.util');
 
 const RESTAURANTS_MAX_SEARCHES = 10;
 
-function Memory() {
+function Cache() {
   const self = this;
   self.users = {/* userId: { sessions: {token} }*/};
   self.onlineUsers = 0;
   self.restaurants = {searches: [/*{latitude, longitude, id}*/], data: redis()};
 };
 
-Memory.prototype.getUser = function(userId) {
+Cache.prototype.getUser = function(userId) {
   return this.users[userId];
 };
 
-Memory.prototype.getSession = function({userId, token}) {
+Cache.prototype.getSession = function({userId, token}) {
   const user = this.getUser(userId);
   return user && user.sessions[token];
 };
 
-Memory.prototype.addSession = function({userId, token}){
+Cache.prototype.addSession = function({userId, token}){
   let user = this.getUser(userId);
   if (user) {
     user.sessions[token] = token;
@@ -30,7 +30,7 @@ Memory.prototype.addSession = function({userId, token}){
   return this.onlineUsers;
 };
 
-Memory.prototype.removeSession = function({userId, token}) {
+Cache.prototype.removeSession = function({userId, token}) {
   const user = this.getUser(userId);
   
   if (user) {
@@ -43,26 +43,26 @@ Memory.prototype.removeSession = function({userId, token}) {
   return this.onlineUsers;
 };
 
-Memory.prototype.isValidSession = function({userId, token}) { 
+Cache.prototype.isValidSession = function({userId, token}) { 
   return !!this.getSession({userId, token});
 };
 
-Memory.prototype.getOnlineUsersCount = function() {
+Cache.prototype.getOnlineUsersCount = function() {
   return this.onlineUsers;
 };
 
-Memory.prototype.getRestaurantsLastSearches = function() {
+Cache.prototype.getRestaurantsLastSearches = function() {
   return this.restaurants.searches;
 };
 
-Memory.prototype.addRestaurantSearch = function(search) {
+Cache.prototype.addRestaurantSearch = function(search) {
   const {searches} = this.restaurants;
   searches.length >= RESTAURANTS_MAX_SEARCHES && searches.shift();
   searches.push(Object.assign(search, {id: uuid('search')}));
   this.restaurants.data.add({key: getSearchKey(search), value: search.restaurants});
 };
 
-Memory.prototype.getRestaurants = function(coordinates) {
+Cache.prototype.getRestaurants = function(coordinates) {
   return this.restaurants.data.get({key: getSearchKey(coordinates)});
 };
 
@@ -70,6 +70,6 @@ const getSearchKey = ({latitude, longitude}) => {
   return `${latitude},${longitude}`;
 };
 
-const memory = new Memory();
+const memory = new Cache();
 
 module.exports = memory;

@@ -1,5 +1,5 @@
 const {http, headers} = require('../utils');
-const {ResponseData, Restaurant, Memory} = require('../models');
+const {ResponseData, Restaurant, Cache} = require('../models');
 const {PY_GET_RESTAURANTS_URI} = require('../config');
 const dictionary = require('../localization');
 const validateSessionService = require('./validateSession.service');
@@ -30,7 +30,7 @@ const getNotCached = async({result, token, lat, lng}) => {
     result.message = '';
     result.data = {restaurants, latitude: lat, longitude: lng};
     
-    Memory.addRestaurantSearch(result.data);
+    Cache.addRestaurantSearch(result.data);
   }
 };
 
@@ -39,7 +39,7 @@ module.exports = async({token, userId, lat, lng}) => {
   const result = {success, message};
 
   if (success) {
-    const cachedRestaurants = await Memory.getRestaurants({latitude: lat, longitude: lng});
+    const cachedRestaurants = await Cache.getRestaurants({latitude: lat, longitude: lng});
     if (cachedRestaurants) {
       result.success = true;
       result.message = '';

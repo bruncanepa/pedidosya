@@ -2,7 +2,7 @@ const {getUser, onlineUsers, getRestaurantsSearches} = require('../services');
 const {AUTHORIZATION_HEADER, RESTAURANTS_CACHE_CONTROL_TIME_KEY, USER_ID_HEADER} = require('../config');
 const {headers, http} = require('../utils');
 const {statusCodes} = http;
-const {ResponseData, Memory} = require('../models');
+const {ResponseData, Cache} = require('../models');
 
 const setRestaurantsCacheControlTime = async(req, res) => {
   const token = headers.get({req, key: AUTHORIZATION_HEADER});
