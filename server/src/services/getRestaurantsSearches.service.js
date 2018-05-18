@@ -6,7 +6,8 @@ module.exports = async({token, userId}) => {
   const {success, message} = await validateSession({token, userId});
   const result = {success, message};
   if (success) {
-    result.data = {last: Cache.getRestaurantsLastSearches()};
+    const last = await Cache.getRestaurantsLastSearches();
+    result.data = {last};
   }
   return new ResponseData(result);
 };

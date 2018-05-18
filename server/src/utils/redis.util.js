@@ -16,7 +16,7 @@ const connect = () => {
   return client;
 };
 
-const add = (client) => ({key, value, expires = true}) => {
+const set = (client) => ({key, value, expires = true}) => {
   const expirationTime = process.env[RESTAURANTS_CACHE_CONTROL_TIME_KEY];
   const parsedValue = JSON.stringify(value);
 
@@ -35,14 +35,37 @@ const get = (client) => ({key}) => {
   });
 };
 
+const getList = (client) => ({key}) => {
+  return new Promise((resolve, reject) => {
+    client.lrange(key, 0, -1, (err, reply) => {
+      err ? reject(err) : resolve(reply.map(value => JSON.parse(value)));
+    });
+  });
+};
+
+const rightPush = (client) => ({key, value}) => {
+  return new Promise((resolve, reject) => {
+    client.rpush(key, JSON.stringify(value), (err, reply) => {
+      err ? reject(err) : resolve(reply);
+    });
+  });
+};
+
+const leftPop = (client) => ({key}) => {
+  return new Promise((resolve, reject) => {
+    client.lpop(key, (err, reply) => {
+      err ? reject(err) : resolve(reply);
+    });
+  });
+};
+
 module.exports = () => {
   const client = connect();
   return { 
-    add: add(client),
+    set: set(client),
     get: get(client),
-    keys: {
-      lastRestaurantsSearches: 'last_restaurants_searches',
-      onlineUsers: 'online_users'
-    }
+    getList: getList(client),
+    rightPush: rightPush(client),
+    leftPop: leftPop(client)
   };
 };

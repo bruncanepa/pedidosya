@@ -1,13 +1,20 @@
 const uuid = require('../utils/uuid.util');
 const redis = require('../utils/redis.util');
 
-const RESTAURANTS_MAX_SEARCHES = 10;
+const RESTAURANTS_MAX_LAST_SEARCHES = 10;
+
+const keys = {
+  lastRestaurantsSearches: 'last_restaurants_searches',
+  onlineUsers: 'online_users',
+  restaurant: 'restaurant',
+  user: 'user'
+};
 
 function Cache() {
   const self = this;
   self.users = {/* userId: { sessions: {token} }*/};
   self.onlineUsers = 0;
-  self.restaurants = {searches: [/*{latitude, longitude, id}*/], data: redis()};
+  self.restaurants = redis();
 };
 
 Cache.prototype.getUser = function(userId) {
@@ -52,24 +59,35 @@ Cache.prototype.getOnlineUsersCount = function() {
 };
 
 Cache.prototype.getRestaurantsLastSearches = function() {
-  return this.restaurants.searches;
+  return this.restaurants.getList({key: keys.lastRestaurantsSearches});
 };
 
-Cache.prototype.addRestaurantSearch = function(search) {
-  const {searches} = this.restaurants;
-  searches.length >= RESTAURANTS_MAX_SEARCHES && searches.shift();
-  searches.push(Object.assign(search, {id: uuid('search')}));
-  this.restaurants.data.add({key: getSearchKey(search), value: search.restaurants});
+Cache.prototype.addRestaurantSearch = async function(search) {
+  const searches = await this.restaurants.getList({key: keys.lastRestaurantsSearches});
+
+  if (searches.length >= RESTAURANTS_MAX_LAST_SEARCHES) {
+    this.restaurants.leftPop({key: keys.lastRestaurantsSearches});
+  }
+
+  const {latitude, longitude} = search;
+  const value = {id: uuid('search'), latitude, longitude};
+
+  this.restaurants.rightPush({key: keys.lastRestaurantsSearches, value});
+  this.restaurants.set({key: getRestaurantKey(search), value: search.restaurants});
 };
 
 Cache.prototype.getRestaurants = function(coordinates) {
-  return this.restaurants.data.get({key: getSearchKey(coordinates)});
+  return this.restaurants.get({key: getRestaurantKey(coordinates)});
 };
 
-const getSearchKey = ({latitude, longitude}) => {
-  return `${latitude},${longitude}`;
+const getRestaurantKey = ({latitude, longitude}) => {
+  return `${keys.restaurant}_${latitude},${longitude}`;
 };
 
-const memory = new Cache();
+const getUserKey = ({userId}) => {
+  return `${keys.user}_${userId}`;
+};
 
-module.exports = memory;
+const cache = new Cache();
+
+module.exports = cache;
