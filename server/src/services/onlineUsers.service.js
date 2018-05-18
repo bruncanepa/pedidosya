@@ -7,7 +7,8 @@ module.exports = {
   getCount: async({token, userId}) => {
     const {success, message} = await validateSession({userId, token});
     if (success) {
-      return new ResponseData({data: {count: Cache.getOnlineUsersCount()}, success});
+      const count = await Cache.getOnlineUsersCount();
+      return new ResponseData({data: {count}, success});
     }
     return new ResponseData({success, message});
   },

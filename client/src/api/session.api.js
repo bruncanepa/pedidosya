@@ -1,9 +1,9 @@
-import {postHttp, setUserSession} from './http';
+import {postHttp, setUserSession, deleteHttp} from './http';
 import {localStorage, publishSubscribe} from '../utils';
 
 const {events, publish} = publishSubscribe;
 
-const signIn = async (form) => {
+const signIn = async(form) => {
   const {body, headers} = await postHttp(`session`, {...form}, {headers: true});
 
   if (body.success) {
@@ -16,7 +16,8 @@ const signIn = async (form) => {
   return body;
 };
 
-const signOut = async () => {
+const signOut = () => {
+  deleteHttp('session');
   setUserSession();
   publish(events.SING_OUT);
   localStorage.removeState();

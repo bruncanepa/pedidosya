@@ -6,6 +6,7 @@ const RESTAURANTS_MAX_LAST_SEARCHES = 10;
 const keys = {
   lastRestaurantsSearches: 'last_restaurants_searches',
   onlineUsers: 'online_users',
+  onlineUsersCount: 'online_users_count',
   restaurant: 'restaurant',
   user: 'user'
 };
@@ -13,8 +14,7 @@ const keys = {
 function Cache() {
   const self = this;
   self.users = {/* userId: { sessions: {token} }*/};
-  self.onlineUsers = 0;
-  self.restaurants = redis();
+  self.data = redis();
 };
 
 Cache.prototype.getUser = function(userId) {
@@ -26,58 +26,62 @@ Cache.prototype.getSession = function({userId, token}) {
   return user && user.sessions[token];
 };
 
-Cache.prototype.addSession = function({userId, token}){
+Cache.prototype.addSession = async function({userId, token}){
   let user = this.getUser(userId);
   if (user) {
     user.sessions[token] = token;
   } else {
-    this.onlineUsers++;
+    await this.updateUsersOnlineCount();
     user = this.users[userId] = {sessions: {[token]: token}};
   }
-  return this.onlineUsers;
 };
 
-Cache.prototype.removeSession = function({userId, token}) {
+Cache.prototype.removeSession = async function({userId, token}) {
   const user = this.getUser(userId);
-  
   if (user) {
     delete user.sessions[token];
     if (Object.keys(user.sessions).length == 0) {
-      this.onlineUsers--;
+      await this.updateUsersOnlineCount(false);
       delete this.users[userId]
     }
   }
-  return this.onlineUsers;
 };
 
 Cache.prototype.isValidSession = function({userId, token}) { 
   return !!this.getSession({userId, token});
 };
 
-Cache.prototype.getOnlineUsersCount = function() {
-  return this.onlineUsers;
+Cache.prototype.getOnlineUsersCount = async function() {
+  const count = await this.data.get({key: keys.onlineUsersCount});
+  return count || 0;
+};
+
+Cache.prototype.updateUsersOnlineCount = async function(add = true) {
+  const key = keys.onlineUsersCount;
+  const count = await this.getOnlineUsersCount();
+  this.data.set({key, value: add ? count + 1 : count - 1});
 };
 
 Cache.prototype.getRestaurantsLastSearches = function() {
-  return this.restaurants.getList({key: keys.lastRestaurantsSearches});
+  return this.data.getList({key: keys.lastRestaurantsSearches});
 };
 
 Cache.prototype.addRestaurantSearch = async function(search) {
-  const searches = await this.restaurants.getList({key: keys.lastRestaurantsSearches});
+  const searches = await this.data.getList({key: keys.lastRestaurantsSearches});
 
   if (searches.length >= RESTAURANTS_MAX_LAST_SEARCHES) {
-    this.restaurants.leftPop({key: keys.lastRestaurantsSearches});
+    this.data.leftPop({key: keys.lastRestaurantsSearches});
   }
 
   const {latitude, longitude} = search;
   const value = {id: uuid('search'), latitude, longitude};
 
-  this.restaurants.rightPush({key: keys.lastRestaurantsSearches, value});
-  this.restaurants.set({key: getRestaurantKey(search), value: search.restaurants});
+  this.data.rightPush({key: keys.lastRestaurantsSearches, value});
+  this.data.set({key: getRestaurantKey(search), value: search.restaurants});
 };
 
 Cache.prototype.getRestaurants = function(coordinates) {
-  return this.restaurants.get({key: getRestaurantKey(coordinates)});
+  return this.data.get({key: getRestaurantKey(coordinates)});
 };
 
 const getRestaurantKey = ({latitude, longitude}) => {
