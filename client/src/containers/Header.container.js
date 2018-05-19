@@ -2,7 +2,7 @@ import React from 'react';
 
 import {usersAPI} from '../api';
 import {publishSubscribe} from '../utils';
-import {http} from '../api';
+import {getUserSession} from '../state';
 
 const {events, subscribe} = publishSubscribe;
 
@@ -15,7 +15,7 @@ const container = T => class Header extends React.Component {
     this.unsubscribeSignIn = subscribe(events.SIGN_IN, this.onSignIn);
     this.unsubscribeSignOut = subscribe(events.SING_OUT, this.onSignOut);
     
-    if (!this.state.user && http.getUserSession()) {
+    if (!this.state.user && getUserSession()) {
       this.fetchUserData();
     }
   }

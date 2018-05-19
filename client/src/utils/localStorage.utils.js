@@ -15,8 +15,12 @@ const loadState = (item = SESSION_KEY) => {
 
 const saveState = (state, item = SESSION_KEY) => {
   try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem(item, serializedState);
+    if (state) {
+      const serializedState = JSON.stringify(state);
+      localStorage.setItem(item, serializedState);
+    } else {
+      removeState(item);
+    }
   } catch (error) {
     // Do nothing
   }

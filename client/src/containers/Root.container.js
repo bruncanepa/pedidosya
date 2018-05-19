@@ -1,14 +1,14 @@
 import React from 'react';
 
-import {http} from '../api';
 import {publishSubscribe} from '../utils';
+import {getUserSession} from '../state';
 
 const {events, subscribe} = publishSubscribe;
 
 const container = T => class Root extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {signedIn: !!http.getUserSession()};
+    this.state = {signedIn: !!getUserSession()};
   }
 
   componentDidMount() {

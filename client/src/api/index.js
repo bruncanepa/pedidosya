@@ -2,7 +2,7 @@ import session from './session.api';
 import restaurants from './restaurants.api';
 import users from './users.api';
 import administration from './administration.api';
-import httpApi from './http';
+import * as httpApi from './http';
 
 
 export const sessionAPI = session;
