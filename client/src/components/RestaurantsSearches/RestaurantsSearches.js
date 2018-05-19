@@ -17,12 +17,14 @@ const Searches = function({searches, loading}) {
       <h3 style={styles.title}>{dic.title}</h3>
       <Loading show={loading}/>
       {!loading && areSearches && <table>
-        <tr>
-          <th>{dic.table.number}</th>
-          <th>{dic.table.latitude}</th>
-          <th>{dic.table.longitude}</th>
-        </tr>
-        {searches.map((search, i) => <RestaurantSearchItem key={search.id} {...search} i={i+1}/>)}
+        <tbody>
+          <tr>
+            <th>{dic.table.number}</th>
+            <th>{dic.table.latitude}</th>
+            <th>{dic.table.longitude}</th>
+          </tr>
+          {searches.map((search, i) => <RestaurantSearchItem key={search.id} {...search} i={i+1}/>)}
+        </tbody>
       </table>}
       {!loading && !areSearches && <label>{dic.noSearches}</label>}
     </div>

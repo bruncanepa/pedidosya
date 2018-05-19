@@ -12,8 +12,7 @@ const container = T => class Form extends React.Component {
     super(props);
     const {inputs} = props.form;
     this.state = {
-      inputValues: inputs
-        .map(i => i.defaultValue || ''),
+      inputValues: inputs.map(i => i.defaultValue || ''),
       validForm: true,
       errorMessage: '',
       loading: false

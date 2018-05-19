@@ -16,8 +16,6 @@ const form = {
       name: 'username',
       text: signInForm.username,
       type: 'email',
-      validate: (username) => !validator.isNullOrEmpty(username),
-      validate: (username) => !validator.isNullOrEmpty(username),
       validate: (username) => !validator.isNullOrEmpty(username)
     }, {
       name: 'password',

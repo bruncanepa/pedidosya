@@ -1,5 +1,5 @@
 const uuid = require('../utils/uuid.util');
-const redis = require('../utils/redis.util');
+const Redis = require('./Redis');
 const config = require('../config');
 
 const RESTAURANTS_MAX_LAST_SEARCHES = 10;
@@ -13,16 +13,16 @@ const keys = {
   restaurantsCacheTime: 'restaurants_cache_time'
 };
 
+/* DATA MODEL
+  last_restaurants_searches: [{id, latitude, longitude}]
+  online_users: number
+  restaurants_cache_time: number
+  restaurant_${latitude}_${longitude}: [Restaurant]
+  user_${userId}: {session1, ..., sessionN}
+*/
 function Cache() {
   const self = this;
-  self.data = redis();
-  /* DATA MODEL
-    last_restaurants_searches: [{id, latitude, longitude}]
-    online_users: number
-    restaurants_cache_time: number
-    restaurant_${latitude}_${longitude}: [Restaurant]
-    user_${userId}: {session1, ..., sessionN}
-  */
+  self.data = new Redis();
 };
 
 Cache.prototype.getUser = function(userId) {
@@ -125,7 +125,9 @@ const cache = new Cache();
 
 const loadRestaurantsCacheTime = async() => {
   const time = await cache.data.get({key: keys.restaurantsCacheTime});
-  if (time !== null) {
+  if (time === null) {
+    cache.data.set({key: keys.restaurantsCacheTime, value: process.env[config.RESTAURANTS_CACHE_CONTROL_TIME_KEY]});
+  } else {
     process.env[config.RESTAURANTS_CACHE_CONTROL_TIME_KEY] = time;
   }
 };

@@ -1,14 +1,14 @@
 const express = require('express');
 
-const api = require('../api');
+const routes = require('../api/routes');
 const {ExpressWrapper} = require('../models');;
 
 module.exports = (app) => {
   Object
-    .keys(api)
+    .keys(routes)
     .forEach(route => {
       const router = express.Router();
       const wrapper = new ExpressWrapper(router);
-      app.use(`/api/${route}`, api[route](wrapper).router);
+      app.use(`/api/${route}`, routes[route](wrapper).router);
     });
 };;
