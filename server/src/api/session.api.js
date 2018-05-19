@@ -1,7 +1,7 @@
 const {signIn, signOut} = require('../services');
 const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
-const {http, headers} = require('../utils');
-const {statusCodes} = http;
+const {httpCustom, headers} = require('../utils');
+const {statusCodes} = httpCustom;
 
 const signInEndpoint = async(req, res) => {
   const result = await signIn(req.body);

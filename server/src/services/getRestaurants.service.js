@@ -1,4 +1,4 @@
-const {http, headers} = require('../utils');
+const {httpCustom, headers} = require('../utils');
 const {ResponseData, Restaurant, Cache} = require('../models');
 const {PY_GET_RESTAURANTS_URI} = require('../config');
 const dictionary = require('../localization');
@@ -19,7 +19,7 @@ const getNotCached = async({result, token, lat, lng}) => {
   const searchKey = `${lat},${lng}`;
   const url = getURL({lat, lng});
   const request = {url, headers: headers.create(token)};
-  const {success, data} = await http.get(request);
+  const {success, data} = await httpCustom.get(request);
   
   if (success) {
     const restaurants = data.data

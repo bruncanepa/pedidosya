@@ -1,7 +1,7 @@
 const express = require('express');
 
 const routes = require('../api/routes');
-const {ExpressWrapper} = require('../models');;
+const ExpressWrapper = require('../models/ExpressWrapper');;
 
 module.exports = (app) => {
   Object

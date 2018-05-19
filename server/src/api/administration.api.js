@@ -1,7 +1,7 @@
 const {getUser, onlineUsers, getRestaurantsSearches} = require('../services');
 const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
-const {headers, http} = require('../utils');
-const {statusCodes} = http;
+const {headers, httpCustom} = require('../utils');
+const {statusCodes} = httpCustom;
 const {ResponseData, Cache} = require('../models');
 
 

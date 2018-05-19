@@ -1,6 +1,6 @@
 const getAppToken = require('./getAppToken.service');
 const onlineUsers = require('./onlineUsers.service');
-const {http, headers} = require('../utils');
+const {httpCustom, headers} = require('../utils');
 const {ResponseData} = require('../models');
 const {PY_SIGN_IN_URI} = require('../config');
 const dictionary = require('../localization');
@@ -12,7 +12,7 @@ const signIn = async({appToken, username, password}) => {
   const request = {url, headers: headers.create(appToken)};
   const result = {success: false, message: dictionary.invalidLogIn};
 
-  const {success, data} = await http.get(request);
+  const {success, data} = await httpCustom.get(request);
   const {access_token} = data;
 
   if (success && access_token) {

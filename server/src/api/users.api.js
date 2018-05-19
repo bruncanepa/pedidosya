@@ -1,8 +1,8 @@
 const {getUser} = require('../services');
 const {AUTHORIZATION_HEADER} = require('../config');
 const {headers} = require('../utils');
-const {http} = require('../utils');
-const {statusCodes} = http;
+const {httpCustom} = require('../utils');
+const {statusCodes} = httpCustom;
 
 const getEndpoint = async(req, res) => {
   const token = headers.get({req, key: AUTHORIZATION_HEADER});

@@ -1,8 +1,8 @@
 const {getRestaurantImage, getRestaurants} = require('../services');
 const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
 const {headers} = require('../utils');
-const {http} = require('../utils');
-const {statusCodes} = http;
+const {httpCustom} = require('../utils');
+const {statusCodes} = httpCustom;
 
 const DEFAULT_COORDINATE_VALUE = '0'
 

@@ -1,11 +1,13 @@
-const {http} = require('../utils');
+const {httpCustom} = require('../utils');
+
+const {statusCodes} = httpCustom;
 
 const asyncRequestHandler = callback => (req, res, next) => {
   Promise
     .resolve(callback(req, res, next))
     .catch(error => {
       console.log(error);
-      res.status(http.statusCodes.BAD_REQUEST).send(error);
+      res.status(statusCodes.BAD_REQUEST).send(error);
     });
 };
 
