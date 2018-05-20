@@ -1,6 +1,7 @@
 const {signIn, signOut} = require('../services');
 const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
 const {httpCustom, headers} = require('../utils');
+
 const {statusCodes} = httpCustom;
 
 const signInEndpoint = async(req, res) => {
@@ -27,6 +28,6 @@ const signOutEndpoint = async(req, res) => {
 
 module.exports = (router) => {
   router.post('/', signInEndpoint);
-  router.delete('/', signOutEndpoint);
+  router.delete('/', signOutEndpoint, {authorize: true});
   return router;
 };

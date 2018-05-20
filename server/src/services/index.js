@@ -6,6 +6,7 @@ const getRestaurants = require('./getRestaurants.service');
 const getRestaurantImage = require('./getRestaurantImage.service');
 const onlineUsers = require('./onlineUsers.service');
 const getRestaurantsSearches = require('./getRestaurantsSearches.service');
+const validateSession = require('./validateSession.service');
 
 module.exports = {
   getAppToken,
@@ -15,5 +16,6 @@ module.exports = {
   getRestaurants,
   getRestaurantImage,
   onlineUsers,
-  getRestaurantsSearches
+  getRestaurantsSearches,
+  validateSession
 };

@@ -1,7 +1,7 @@
 const {getUser} = require('../services');
-const {AUTHORIZATION_HEADER} = require('../config');
-const {headers} = require('../utils');
-const {httpCustom} = require('../utils');
+const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
+const {headers,httpCustom} = require('../utils');
+
 const {statusCodes} = httpCustom;
 
 const getEndpoint = async(req, res) => {

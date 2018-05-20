@@ -4,13 +4,9 @@ const dictionary = require('../localization');
 const validateSession = require('./validateSession.service');
 
 module.exports = {
-  getCount: async({token, userId}) => {
-    const {success, message} = await validateSession({userId, token});
-    if (success) {
-      const count = await Cache.getOnlineUsersCount();
-      return new ResponseData({data: {count}, success});
-    }
-    return new ResponseData({success, message});
+  getCount: async() => {
+    const count = await Cache.getOnlineUsersCount();
+    return new ResponseData({data: {count}, success: true});
   },
   addSession: async({token}) => {
     const {success, data, message} = await getUser({token: token});
@@ -21,10 +17,7 @@ module.exports = {
     return new ResponseData({success, message});
   },
   removeSession: async({token, userId}) => {
-    const {success, message} = await validateSession({userId, token});
-    if (success) {
-      Cache.removeSession({userId, token}); 
-    }
-    return new ResponseData({success, message});
+    Cache.removeSession({userId, token}); 
+    return new ResponseData({success: true});
   }
 };

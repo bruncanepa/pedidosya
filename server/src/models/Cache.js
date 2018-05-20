@@ -45,7 +45,7 @@ Cache.prototype.getSession = async function({userId, token}) {
 };
 
 Cache.prototype.addSession = async function({userId, token}){
-  let user = await this.getUser(userId);
+  const user = await this.getUser(userId);
   const key = getUserKey({userId});
   if (user) {
     this.data.updateHash({key, field: token, value: token});

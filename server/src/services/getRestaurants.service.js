@@ -2,7 +2,6 @@ const {httpCustom, headers} = require('../utils');
 const {ResponseData, Restaurant, Cache} = require('../models');
 const {PY_GET_RESTAURANTS_URI} = require('../config');
 const dictionary = require('../localization');
-const validateSessionService = require('./validateSession.service');
 
 const baseURL = PY_GET_RESTAURANTS_URI;
 const country = 1;
@@ -34,19 +33,16 @@ const getNotCached = async({result, token, lat, lng}) => {
   }
 };
 
-module.exports = async({token, userId, lat, lng}) => {
-  const {success, message} = await validateSessionService({userId, token});
-  const result = {success, message};
+module.exports = async({token, lat, lng}) => {
+  const result = {success: false};
+  const cachedRestaurants = await Cache.getRestaurants({latitude: lat, longitude: lng});
 
-  if (success) {
-    const cachedRestaurants = await Cache.getRestaurants({latitude: lat, longitude: lng});
-    if (cachedRestaurants) {
-      result.success = true;
-      result.message = '';
-      result.data = {restaurants: cachedRestaurants, latitude: lat, longitude: lng};
-    } else {
-      await getNotCached({token, result, lat, lng});
-    }
+  if (cachedRestaurants) {
+    result.success = true;
+    result.message = '';
+    result.data = {restaurants: cachedRestaurants, latitude: lat, longitude: lng};
+  } else {
+    await getNotCached({token, result, lat, lng});
   }
 
   return new ResponseData(result);

@@ -19,26 +19,18 @@ const setRestaurantsCacheControlTime = async(req, res) => {
 };
 
 const getAdministrationInfo = async(req, res) => {
-  const token = headers.get({req, key: AUTHORIZATION_HEADER});
-  const userId = headers.get({req, key: USER_ID_HEADER});
-  const params = {token, userId};
-  
   const [usersCount, searches] = await Promise.all([
-    onlineUsers.getCount(params),
-    getRestaurantsSearches(params)
+    onlineUsers.getCount(),
+    getRestaurantsSearches()
   ]); 
-  
-  if (usersCount.success) {
-    const response = new ResponseData({success: true, data: {onlineUsers: usersCount.data, searches: searches.data}});
-    res.send(response);
-  } else {
-    res.status(statusCodes.UNAUTHORIZED).send(usersCount);
-  }
+
+  const data = {onlineUsers: usersCount.data, searches: searches.data};
+  res.send(new ResponseData({success: true, data}));
 };
 
 
 module.exports = (router) => {
   router.put('/cacheControlTime', setRestaurantsCacheControlTime);
-  router.get('/', getAdministrationInfo);
+  router.get('/', getAdministrationInfo, {authorize: true});
   return router;
 };
