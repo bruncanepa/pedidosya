@@ -1,38 +1,31 @@
-const li = {
-  alignItems: 'center',
-  color: 'black',
-  flex: 1,
-  paddingBottom: 12,
-  textAlign: 'center',
-  textTransformation: 'uppercase',
-};
-
 const link = {
+  alignItems: 'center',
+  color: 'grey',
+  flex: 1,
+  paddingTop: 12,
+  textAlign: 'center',
+  backgroundColor: 'white',
   textDecoration: 'none',
-  color: 'black'  
+  color: 'grey',
+  height: 20,
+  paddingBottom: 14,
 };
 
 export default {
   content: {
-    backgroundColor: 'rgb(241, 241, 241)',
-    height: 30,
-  },
-  ul: {
     paddingLeft: 0,
     listStyle: 'none',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-  },
-  li,
-  activeLi: {
-    ...li,
-    borderBottom: 'solid rgb(245, 47, 65)',
-    color: 'rgb(245, 47, 65)',
+    margin: 0,
+    alignItems: 'center'
   },
   link,
   activeLink: {
     ...link,
+    borderBottom: 'solid 2.5px rgb(245, 47, 65)',
     color: 'rgb(245, 47, 65)',
+    paddingBottom: 11,
   }
 };

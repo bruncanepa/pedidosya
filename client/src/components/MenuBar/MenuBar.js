@@ -26,17 +26,15 @@ class MenuBar extends React.Component {
     const {active} = this.state;
     return (
       <div style={styles.content}>
-        <ul style={styles.ul}>
-          {options.map(({route, text, id}) => (
-            <li onClick={this.onClick(id)} key={id} style={id == active ? styles.activeLi : styles.li}>
-              <Link   
-                style={id == active ? styles.activeLink : styles.link} 
-                to={route}>
-                {text}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {options.map(({route, text, id}) => (
+          <Link   
+            style={id == active ? styles.activeLink : styles.link}
+            key={id} 
+            onClick={this.onClick(id)}
+            to={route}>
+            {text}
+          </Link>
+        ))}
       </div>
     );
   }

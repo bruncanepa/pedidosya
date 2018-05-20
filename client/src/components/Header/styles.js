@@ -12,9 +12,9 @@ export default {
     position: 'fixed',
     top: 0
   },
-  titleSpan : {
-    paddingLeft: 10,
-    flex: 1
+  image : {
+    height: 30,
+    paddingLeft: 10
   },
   nameSpan : {
     paddingRight: 10,
