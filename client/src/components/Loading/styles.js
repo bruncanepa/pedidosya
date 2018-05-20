@@ -2,7 +2,8 @@ const content = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'black'
+  color: 'black',
+  padding: 5
 };
 
 export default {

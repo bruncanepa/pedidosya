@@ -44,7 +44,6 @@ class Restaurants extends React.PureComponent {
     const {restaurants, latitude, longitude, fetching} = this.state;
     return (
       <div style={styles.content}>
-        <h2>{restaurantsList.title}</h2>
         <div style={styles.listContent}>
           {restaurants.map(restaurant => (<RestaurantItem key={restaurant.name} restaurant={restaurant}/>))}
           {!fetching && restaurants.length == 0 && <label>{restaurantsList.noItems}</label>}

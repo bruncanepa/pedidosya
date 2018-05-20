@@ -6,11 +6,13 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     padding: 5,
+    paddingTop: 0,
     backgroundColor: 'rgb(241, 241, 241)',
   },
   listContent : {
     width: '100%',
     padding: 5,
+    paddingTop: 0,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

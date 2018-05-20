@@ -6,13 +6,13 @@ export default {
     title: 'Iniciar sesión',
     username: 'Usuario',
     password: 'Contraseña',
-    send: 'Iniciar sesión'
+    send: 'Confirmar'
   },
   searchRestaurantsForm : {
-    title: 'Búsqueda de restaurantes',
+    title: 'Buscar',
     latitude: 'Latitud',
     longitude: 'Longitud',
-    send: 'Buscar'
+    send: 'Confirmar'
   },
   restaurantsList : {
     title: 'Resultados',

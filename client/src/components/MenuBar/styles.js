@@ -1,18 +1,18 @@
 const link = {
   alignItems: 'center',
-  color: 'grey',
   flex: 1,
   paddingTop: 12,
   textAlign: 'center',
-  backgroundColor: 'white',
+  backgroundColor: 'rgb(245, 47, 65)',
   textDecoration: 'none',
-  color: 'grey',
+  color: 'pink',
   height: 20,
   paddingBottom: 14,
 };
 
 export default {
   content: {
+    // borderTop: 'solid 1px white',
     paddingLeft: 0,
     listStyle: 'none',
     display: 'flex',
@@ -24,8 +24,8 @@ export default {
   link,
   activeLink: {
     ...link,
-    borderBottom: 'solid 2.5px rgb(245, 47, 65)',
-    color: 'rgb(245, 47, 65)',
+    borderBottom: 'solid 2.5px white',
+    color: 'white',
     paddingBottom: 11,
   }
 };

@@ -8,10 +8,10 @@ import dictionary from '../../localization';
 const Loading = function({show, overlay}) {
   return (
     <div>
-    {!!show && 
-      <div style={overlay ? styles.overlayContent : styles.content}>
-        <label style={styles.labelText}>{dictionary.form.loading}</label>
-      </div>}
+      {!!show && 
+        <div style={overlay ? styles.overlayContent : styles.content}>
+          <label style={styles.labelText}>{dictionary.form.loading}</label>
+        </div>}
     </div>
   )
 };
