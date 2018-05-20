@@ -16,7 +16,6 @@ const form = {
       name: 'latitude',
       text: searchRestaurantsForm.latitude,
       type: 'text',
-      validate: (latitude) => !validator.isNullOrEmpty(latitude),
       validate: (latitude) => !validator.isNullOrEmpty(latitude)
     }, {
       name: 'longitude',
