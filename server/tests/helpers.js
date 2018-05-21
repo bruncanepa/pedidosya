@@ -44,11 +44,11 @@ const expectSuccess = ({err, res, interceptors}) => {
   expect(res.body.data).to.be.not.null;
 };
 
-const expectError = ({err, res, interceptors}) => {
+const expectError = ({err, res, interceptors, status}) => {
   interceptorsAreDone({interceptors});
   expect(err).to.be.null;
   expect(res).to.not.be.null;
-  res.should.have.status(401);
+  res.should.have.status(status || 401);
   expect(res.body).to.be.not.null;
   expect(res.body.success).to.be.false;
   expect(res.body.message).to.be.not.null;

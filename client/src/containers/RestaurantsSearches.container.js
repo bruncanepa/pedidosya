@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const container = T => class RestaurantsSearches extends React.PureComponent {
+const Container = T => class RestaurantsSearches extends React.PureComponent {
   static propTypes = {
     searches: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired
@@ -12,4 +12,4 @@ const container = T => class RestaurantsSearches extends React.PureComponent {
   }
 };
 
-export default container;
+export default Container;

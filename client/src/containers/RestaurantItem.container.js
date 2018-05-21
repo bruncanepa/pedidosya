@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {restaurantPropTypes} from '../propTypes';
 import {restaurantsAPI} from '../api';
 
-const container = T => class Restaurant extends React.Component {
+const Container = T => class Restaurant extends React.Component {
   state = {
     image: ''
   }
@@ -33,4 +33,4 @@ const container = T => class Restaurant extends React.Component {
   }
 };
 
-export default container;
+export default Container;

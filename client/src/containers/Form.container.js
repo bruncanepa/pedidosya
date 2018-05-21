@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {validator} from '../utils';
 
-const container = T => class Form extends React.Component {
+const Container = T => class Form extends React.Component {
   static propTypes = {
     form: PropTypes.object.isRequired
   }
@@ -15,6 +15,7 @@ const container = T => class Form extends React.Component {
       inputValues: inputs.map(i => i.defaultValue || ''),
       validForm: true,
       errorMessage: '',
+      successMessage: '',
       loading: false
     };
   }
@@ -26,7 +27,7 @@ const container = T => class Form extends React.Component {
       nextState,
       nextProps,
       propsToCheck: ['form'],
-      statesToCheck: ['nextState', 'validForm', 'errorMessage', 'loading']
+      statesToCheck: ['nextState', 'validForm', 'errorMessage', 'successMessage', 'loading', 'inputValues']
     });
   }
 
@@ -34,7 +35,7 @@ const container = T => class Form extends React.Component {
     return (text) => {
       const inputValues = [...this.state.inputValues];
       inputValues[id] = text;
-      this.setState({inputValues, validForm: true});
+      this.setState({inputValues, validForm: true, successMessage: ''});
     }
   }
 
@@ -51,7 +52,10 @@ const container = T => class Form extends React.Component {
       }, {});
       this.setState({loading: true});
       const response = await send.callback(data);
-      this.setState({errorMessage: response.message, validForm: response.success, loading: false});
+      this.setState({errorMessage: response.message, successMessage: response.message, validForm: response.success, loading: false});
+      if (response.success) {
+        this.setState({inputValues: inputs.map(i => i.defaultValue || ''),})
+      }
       return response;
     }
     this.setState({validForm});
@@ -70,4 +74,4 @@ const container = T => class Form extends React.Component {
   }
 };
 
-export default container;
+export default Container;

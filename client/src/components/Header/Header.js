@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './styles';
-import container from '../../containers/Header.container';
+import Container from '../../containers/Header.container';
 import dictionary from '../../localization';
 import {userPropTypes} from '../../propTypes';
 
@@ -18,4 +18,4 @@ const Header = function ({user}) {
   );
 };
 
-export default container(Header);
+export default Container(Header);

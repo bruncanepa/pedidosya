@@ -3,7 +3,7 @@ import React from 'react';
 import {routes} from '../constants';
 import dictionary from '../localization';
 
-const container = T => class MenuBar extends React.PureComponent {
+const Container = T => class MenuBar extends React.PureComponent {
   options = [{
     route: routes.search,
     text: dictionary.menuBar.searchRestaurants,
@@ -24,4 +24,4 @@ const container = T => class MenuBar extends React.PureComponent {
   }
 };
 
-export default container;
+export default Container;

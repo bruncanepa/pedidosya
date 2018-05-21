@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route} from 'react-router-dom';
 
-import container from '../../containers/ShouldNotUpdate.container';
+import Container from '../../containers/ShouldNotUpdate.container';
 import styles from './styles';
 import {query} from '../../utils';
 
@@ -31,15 +31,15 @@ class ButtonForm extends React.Component {
   render() {
     const {onClick, text} = this.props;
     return (
-      <Route render={({history}) => (
-        <div style={styles.content}>
+      <div style={styles.content}>
+        <Route render={({history}) => (
           <button style={styles.button} onClick={this.onClick(history)}>
             {text}
           </button>
-        </div>
-      )}/>
+        )}/>
+      </div>
     )
   }
 };  
 
-export default container(ButtonForm);
+export default Container(ButtonForm);

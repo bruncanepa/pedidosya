@@ -32,7 +32,7 @@ const form = {
   }
 };
 
-const container = T => class SignInForm extends React.Component {
+const Container = T => class SignInForm extends React.Component {
 
   shouldComponentUpdate() {
     return false;
@@ -43,4 +43,4 @@ const container = T => class SignInForm extends React.Component {
   }
 };
 
-export default container;
+export default Container;

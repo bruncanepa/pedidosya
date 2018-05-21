@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import container from '../../containers/ShouldNotUpdate.container';
+import Container from '../../containers/ShouldNotUpdate.container';
 import styles from './styles';
 
 const SearchItem = function({latitude, longitude, i}) {
@@ -14,4 +14,4 @@ const SearchItem = function({latitude, longitude, i}) {
   )
 };
 
-export default container(SearchItem);
+export default Container(SearchItem);

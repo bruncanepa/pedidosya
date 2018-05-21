@@ -4,6 +4,7 @@ const readFile = require('./readFile.util');
 const headers = require('./headers.util');
 const uuid = require('./uuid.util');
 const promisify = require('./promisify.util');
+const images = require('./images.util');
 
 module.exports = {
   importEnv,
@@ -11,5 +12,6 @@ module.exports = {
   readFile,
   headers,
   uuid,
-  promisify
+  promisify,
+  images
 };

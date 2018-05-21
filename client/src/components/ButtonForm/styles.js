@@ -3,9 +3,11 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '80%',
+    width: '100%',
     height: 30,
-    paddingTop: 10
+    paddingTop: 10,
+    paddingBottom: 5,
+    backgroundColor: 'rgb(241, 241, 241)',
   },
   button : {
     textAlign: 'center',
@@ -16,7 +18,7 @@ export default {
     color: 'white',
     fontSize: 16,
     borderRadius: 5,
-    flex: 1,
-    height: '100%'
+    height: '100%',
+    width: '80%'
   }
 }

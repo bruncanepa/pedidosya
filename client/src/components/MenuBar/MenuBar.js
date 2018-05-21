@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-import container from '../../containers/MenuBar.container';
+import Container from '../../containers/MenuBar.container';
 import styles from './styles';
 
 class MenuBar extends React.Component {
@@ -44,4 +44,4 @@ MenuBar.propTypes = {
   options: PropTypes.array.isRequired
 };
 
-export default container(MenuBar);
+export default Container(MenuBar);

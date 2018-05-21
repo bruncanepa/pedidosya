@@ -33,6 +33,18 @@ describe('Administration API', () => {
         })
     });
 
+    it('it should not set restaurants cache time - invalid time', (done) => {
+      chai.request(server)
+        .put('/api/administration')
+        .set(config.AUTHORIZATION_HEADER, access_token)
+        .set(config.USER_ID_HEADER, user.id)
+        .send({time: 'invalid_time'})
+        .end((err, res) =>{
+          helpers.expectError({err, res, status: 200});
+          done();
+        })
+    });
+
     it('it should not set restaurants cache time - invalid userId', (done) => {
       chai.request(server)
         .put('/api/administration')

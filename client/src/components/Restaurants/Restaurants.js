@@ -1,6 +1,6 @@
 import React from 'react';
 
-import container from '../../containers/ShouldNotUpdate.container';
+import Container from '../../containers/ShouldNotUpdate.container';
 import styles from './styles';
 import RestaurantItem from '../RestaurantItem';
 import Loading from '../Loading';
@@ -54,4 +54,4 @@ class Restaurants extends React.PureComponent {
   }
 }
 
-export default container(Restaurants);
+export default Container(Restaurants);

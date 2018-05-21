@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import container from '../../containers/RestaurantsSearches.container';
+import Container from '../../containers/RestaurantsSearches.container';
 import styles from './styles';
 import './styles.css';
 import RestaurantSearchItem from '../RestaurantSearchItem';
@@ -36,4 +36,4 @@ Searches.propTypes = {
   loading: PropTypes.bool.isRequired
 };
 
-export default container(Searches);
+export default Container(Searches);

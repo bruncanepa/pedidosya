@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import container from '../../containers/SignInForm.container';
+import Container from '../../containers/SignInForm.container';
 import Form from '../Form';
 
 const SignInForm = function ({form}) {
@@ -16,4 +16,4 @@ SignInForm.propTypes = {
   form: PropTypes.object.isRequired
 };
 
-export default container(SignInForm);
+export default Container(SignInForm);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import container from '../../containers/RestaurantItem.container';
+import Container from '../../containers/RestaurantItem.container';
 import styles from './styles';
 import {restaurantPropTypes} from '../../propTypes';
 import dictionary from '../../localization';
@@ -12,7 +12,7 @@ const Restaurant = function ({restaurant, image}) {
   return (
     <div style={styles.content}>
       <div style={styles.left}>
-        {!!image && <img src={`${image}`} />}
+        {!!image && <img src={`data:image/jpg;base64,${image}`} />}
       </div>
       <div style={styles.right}>
         <label style={styles.titleLabel}>{name}</label>
@@ -29,4 +29,4 @@ Restaurant.Proptype = {
   restaurant: restaurantPropTypes
 };
 
-export default container(Restaurant);
+export default Container(Restaurant);

@@ -1,11 +1,17 @@
+const errorLabel = {
+  color: 'red',
+  textAlign: 'right',
+  width: '100%'
+};
+
 export default {
   content : {
     display: 'flex',
-    width: '100%',
+    flex: 1,
     alignItems: 'center',
     flexDirection: 'column',
     backgroundColor: 'rgb(241, 241, 241)',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   inputContent : {
     display: 'flex',
@@ -14,10 +20,10 @@ export default {
     justifyContent: 'center',
     width: '100%'
   },
-  errorLabel : {
-    color: 'red',
-    textAlign: 'right',
-    width: '100%'
+  errorLabel,
+  successLabel: {
+    ...errorLabel,
+    color: 'green'
   },
   errorContent : {
     height: 15,

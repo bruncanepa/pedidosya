@@ -6,7 +6,7 @@ import {getUserSession} from '../state';
 
 const {events, subscribe} = publishSubscribe;
 
-const container = T => class Header extends React.Component {
+const Container = T => class Header extends React.Component {
   state = {
     user: null
   }
@@ -47,4 +47,4 @@ const container = T => class Header extends React.Component {
   }
 };
 
-export default container;
+export default Container;

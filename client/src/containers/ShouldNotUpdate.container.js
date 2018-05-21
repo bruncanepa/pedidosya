@@ -1,6 +1,6 @@
 import React from 'react';
 
-const container = T => class ShouldNotUpdate extends React.Component {
+const Container = T => class ShouldNotUpdate extends React.Component {
 
   shouldComponentUpdate() {
     return false;
@@ -11,4 +11,4 @@ const container = T => class ShouldNotUpdate extends React.Component {
   }
 };
 
-export default container;
+export default Container;

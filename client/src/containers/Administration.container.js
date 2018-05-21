@@ -3,7 +3,7 @@ import React from 'react';
 import {sessionAPI, administrationAPI} from '../api';
 import {routes} from '../constants';
 
-const container = T => class Administration extends React.PureComponent {
+const Container = T => class Administration extends React.PureComponent {
   
   state = {onlineUsersCount: '-', searches: [], loading: true}
 
@@ -41,4 +41,4 @@ const container = T => class Administration extends React.PureComponent {
   }
 };
 
-export default container;
+export default Container;

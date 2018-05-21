@@ -31,7 +31,7 @@ const form = {
   }
 };
 
-const container = T => class SearchRestaurantsForm extends React.Component {
+const Container = T => class SearchRestaurantsForm extends React.Component {
 
   shouldComponentUpdate() {
     return false;
@@ -42,4 +42,4 @@ const container = T => class SearchRestaurantsForm extends React.Component {
   }
 };
 
-export default container;
+export default Container;

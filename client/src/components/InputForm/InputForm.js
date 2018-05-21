@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import container from '../../containers/InputForm.container';
+import Container from '../../containers/InputForm.container';
 import styles from './styles';
 
 class InputForm extends React.Component {
@@ -39,4 +39,4 @@ class InputForm extends React.Component {
   }
 }
 
-export default container(InputForm);
+export default Container(InputForm);

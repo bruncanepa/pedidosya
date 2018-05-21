@@ -5,10 +5,9 @@
   "repository": "https://github.com/brunocanepa/pedidos-ya",
   "author": "Bruno Cánepa",
   "scripts": {
-    "server": "node index",
+    "server": "node index NODE_ENV=production",
     "dev": "nodemon ./src/index.js localhost 3001",
-    "test": "mocha ./tests",
-    "test-debug": "mocha ./tests --inspect-brk"
+    "test": "NODE_ENV=testing mocha ./tests "
   },
   "dependencies": {
     "axios": "^0.18.0",

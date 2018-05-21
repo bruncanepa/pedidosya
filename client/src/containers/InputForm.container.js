@@ -1,6 +1,6 @@
 import React from 'react';
 
-const container = T => class InputForm extends React.Component {
+const Container = T => class InputForm extends React.Component {
   
   shouldComponentUpdate(nextProps) {
     return this.props.value != nextProps.value;
@@ -11,4 +11,4 @@ const container = T => class InputForm extends React.Component {
   }
 };
 
-export default container;
+export default Container;

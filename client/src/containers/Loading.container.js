@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const container = T => class Loading extends React.PureComponent {
+const Container = T => class Loading extends React.PureComponent {
   static propTypes = {
     overlay: PropTypes.bool,
     show: PropTypes.bool
@@ -13,4 +13,4 @@ const container = T => class Loading extends React.PureComponent {
   }
 };
 
-export default container;
+export default Container;

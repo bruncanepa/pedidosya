@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import container from '../../containers/SearchRestaurantsForm.container';
+import Container from '../../containers/SearchRestaurantsForm.container';
 import Form from '../Form';
 
 const SearchRestaurantsForm = function ({form}) {
@@ -16,4 +16,4 @@ SearchRestaurantsForm.propTypes = {
   form: PropTypes.object.isRequired
 };
 
-export default container(SearchRestaurantsForm);
+export default Container(SearchRestaurantsForm);

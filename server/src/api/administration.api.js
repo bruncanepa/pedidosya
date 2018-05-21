@@ -3,12 +3,18 @@ const {AUTHORIZATION_HEADER, USER_ID_HEADER} = require('../config');
 const {headers, httpCustom} = require('../utils');
 const {statusCodes} = httpCustom;
 const {ResponseData, Cache} = require('../models');
+const dictionary = require('../localization');
 
 
 const setRestaurantsCacheTime = async(req, res) => {
   const time = parseFloat(req.body.time);
-  await Cache.setRestaurantsCacheTime(time);
-  res.send(new ResponseData({success: true, data: {time}}));
+  console.log(process.env.NODE_ENV)
+  if (isNaN(time)) {
+    res.send(new ResponseData({success: false, message: dictionary.restaurantsCacheTimeError}));
+  } else {
+    await Cache.setRestaurantsCacheTime(time);
+    res.send(new ResponseData({success: true, data: {time}}));
+  }
 };
 
 const getAdministrationInfo = async(req, res) => {

@@ -5,7 +5,7 @@ import {getUserSession} from '../state';
 
 const {events, subscribe} = publishSubscribe;
 
-const container = T => class Root extends React.Component {
+const Container = T => class Root extends React.Component {
   constructor(props) {
     super(props);
     this.state = {signedIn: !!getUserSession()};
@@ -38,4 +38,4 @@ const container = T => class Root extends React.Component {
   }
 };
 
-export default container;
+export default Container;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import container from '../../containers/Loading.container';
+import Container from '../../containers/Loading.container';
 import styles from './styles';
 import dictionary from '../../localization';
 
@@ -21,4 +21,4 @@ Loading.propTypes = {
   show: PropTypes.bool
 };
 
-export default container(Loading);
+export default Container(Loading);

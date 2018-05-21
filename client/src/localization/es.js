@@ -41,6 +41,12 @@ export default {
         longitude: 'Longitud'
       },
       noSearches: 'No hay búsquedas recientes'
+    },
+    restaurantsCacheTime: {
+      title: 'Tiempo de Cache de Restaurantes',
+      send: 'Confirmar',
+      time: 'Tiempo (segundos)',
+      success: 'Tiempo actualizado'
     }
   },
   form: {

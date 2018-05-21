@@ -1,6 +1,6 @@
 import React from 'react';
 
-import container from '../../containers/Root.container';
+import Container from '../../containers/Root.container';
 import styles from './styles';
 import Header from '../Header';
 import Navigator from '../Navigator';
@@ -17,4 +17,4 @@ const Root = function ({signedIn}) {
   );
 };
 
-export default container(Root);
+export default Container(Root);

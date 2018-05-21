@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import container from '../../containers/Form.container';
+import Container from '../../containers/Form.container';
 import styles from './styles';
 import InputForm from '../InputForm';
 import ButtonForm from '../ButtonForm';
@@ -19,14 +19,15 @@ class Form extends React.Component {
     validForm: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
+    successMessage: PropTypes.string
   }
 
   render() {
-    const {form, inputValues, onTextChange, onSend, validForm, errorMessage, loading} = this.props;
+    const {form, inputValues, onTextChange, onSend, validForm, errorMessage, successMessage, loading} = this.props;
     const {title, inputs, send} = form;
     return (
       <div style={styles.content}>
-        <h2>{title.text}</h2>
+        {title.small ? <h3>{title.text}</h3> : <h2>{title.text}</h2>}
         <div style={styles.inputContent}>
           {inputs.map((input, index) => (
             <InputForm
@@ -42,6 +43,7 @@ class Form extends React.Component {
         </div>
         <div style={styles.errorContent}>
           {!validForm && <label style={styles.errorLabel}>{errorMessage || dictionary.form.error} </label>}
+          {!!validForm && <label style={styles.successLabel}>{successMessage}</label>}
         </div>
         <ButtonForm onClick={onSend} text={send.text} nextRoute={send.nextRoute} event={send.event}/>
         <Loading overlay show={send.showLoading && loading} />
@@ -50,4 +52,4 @@ class Form extends React.Component {
   }
 }
 
-export default container(Form);
+export default Container(Form);
