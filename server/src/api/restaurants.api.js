@@ -22,14 +22,8 @@ const getEndpoint = async(req, res) => {
 
 const getImageEndpoint = async (req, res) => {
   const {name} = req.params;
-  
   const result = await getRestaurantImage({name});
-
-  if (result.success) {
-    res.send(result);
-  } else {
-    res.status(statusCodes.NOT_FOUND).send(result);
-  }
+  res.send(result);
 };
 
 module.exports = (router) => {

@@ -14,7 +14,7 @@ const signOutRequest = (callback) => {
     .end(callback);
 };
 
-const signInSuccessfulRequest = ({done, interceptors = []}) => {
+const signInSuccessRequest = ({done, interceptors = []}) => {
   return new Promise((resolve) => {
     chai
       .request(server)
@@ -57,7 +57,7 @@ const expectError = ({err, res, interceptors}) => {
 
 module.exports = {
   signOutRequest,
-  signInSuccessfulRequest,
+  signInSuccessRequest,
   interceptorsAreDone,
   expectSuccess,
   expectError

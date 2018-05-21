@@ -14,12 +14,12 @@ const helpers = require('./helpers');
 describe('Administration API', () => {
   beforeEach(done => { 
     helpers.signOutRequest((err, res) => 
-      helpers.signInSuccessfulRequest({done, interceptors: interceptors.signInSuccessful()})
+      helpers.signInSuccessRequest({done, interceptors: interceptors.signInSuccess()})
     );
   })
 
   describe('setRestaurantsCacheTime', () => {
-    const time = 40;
+    const time = 1;
     it('it should set restaurants cache time', (done) => {
       chai.request(server)
         .put('/api/administration')
@@ -68,7 +68,7 @@ describe('Administration API', () => {
           helpers.expectSuccess({err, res});
           expect(res.body.data.onlineUsers).to.be.not.null;
           expect(res.body.data.onlineUsers).to.be.instanceOf(Object);
-          expect(res.body.data.onlineUsers.count).to.be.eq(1);
+          expect(res.body.data.onlineUsers.count).to.be.greaterThan(0);
           expect(res.body.data.searches).to.be.not.null;
           expect(res.body.data.searches).to.be.instanceof(Object);
           expect(res.body.data.searches.last).to.be.instanceof(Array);

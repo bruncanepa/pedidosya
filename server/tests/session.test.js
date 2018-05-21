@@ -23,7 +23,7 @@ describe('Session API', () => {
 
   describe('signIn', () => {
     it('it should sign in', (done) => {
-      helpers.signInSuccessfulRequest({done, interceptors: interceptors.signInSuccessful()});
+      helpers.signInSuccessRequest({done, interceptors: interceptors.signInSuccess()});
     });
 
     it('it should not sign in - invalid password', (done) => {
@@ -47,7 +47,7 @@ describe('Session API', () => {
 
   describe('signOut', () => {
     it('it should sign out', (done) => {
-      helpers.signInSuccessfulRequest({interceptors: interceptors.signInSuccessful()})
+      helpers.signInSuccessRequest({interceptors: interceptors.signInSuccess()})
         .then(() => {
           helpers.signOutRequest((err, res) => {
             helpers.expectSuccess({err, res});

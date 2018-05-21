@@ -12,13 +12,9 @@ const interceptors = require('./interceptors');
 const helpers = require('./helpers');
 
 describe('Users API', () => {
-  beforeEach(done => { 
-    helpers.signOutRequest((err, res) => done());
-  })
-
   describe('getUser', () => {
     it('it should get the user', (done) => {
-      const intercept = interceptors.getUserSuccessful();
+      const intercept = interceptors.getUserSuccess();
       chai.request(server)
         .get('/api/users')
         .set(config.AUTHORIZATION_HEADER, access_token)
