@@ -27,7 +27,7 @@ const signOutEndpoint = async(req, res) => {
 };
 
 module.exports = (router) => {
-  router.post('/', signInEndpoint);
-  router.delete('/', signOutEndpoint, {authorize: true});
+  router.post('/', signInEndpoint, {authorize: false});
+  router.delete('/', signOutEndpoint);
   return router;
 };

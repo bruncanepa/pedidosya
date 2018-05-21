@@ -16,6 +16,6 @@ const getEndpoint = async(req, res) => {
 };
 
 module.exports = (router) => {
-  router.get('/', getEndpoint);
+  router.get('/', getEndpoint, {authorize: false});
   return router;
 };

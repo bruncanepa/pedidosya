@@ -20,7 +20,7 @@ const asyncRequestHandler = (...handlers) => (
     })
 );
 
-const defaultOptions = {authorize: false};
+const defaultOptions = {authorize: true};
 
 const getHandlers = ({options  = defaultOptions, handler}) => {
   const handlers = [handler];

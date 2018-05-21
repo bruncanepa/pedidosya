@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const server = require('../src/api');
 const config = require('../src/config');
-const {user, username, password, access_token} = require('./values');
+const {user, access_token} = require('./values');
 const interceptors = require('./interceptors');
 const helpers = require('./helpers');
 
@@ -23,13 +23,7 @@ describe('Users API', () => {
         .get('/api/users')
         .set(config.AUTHORIZATION_HEADER, access_token)
         .end((err, res) =>{
-          helpers.interceptorsAreDone({interceptors: intercept});
-          expect(err).to.be.null;
-          expect(res).to.not.be.null;
-          res.should.have.status(200);
-          expect(res.body).to.be.not.null;
-          expect(res.body.success).to.be.true;
-          expect(res.body.data).to.be.not.null;
+          helpers.expectSuccess({err, res, interceptors: intercept});
           expect(res.body.data.user).to.be.not.null;
           expect(res.body.data.user.id).to.be.eq(user.id);
           done();
@@ -42,13 +36,7 @@ describe('Users API', () => {
         .get('/api/users')
         .set(config.AUTHORIZATION_HEADER, access_token)
         .end((err, res) => {
-          helpers.interceptorsAreDone({interceptors: intercept});
-          expect(err).to.be.null;
-          expect(res).to.not.be.null;
-          res.should.have.status(401);
-          expect(res.body).to.be.not.null;
-          expect(res.body.success).to.be.false;
-          expect(res.body.data).to.be.not.undefined;
+          helpers.expectError({err, res, interceptors: intercept});
           done();
         });
     });

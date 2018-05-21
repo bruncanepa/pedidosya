@@ -21,13 +21,7 @@ const signInSuccessfulRequest = ({done, interceptors = []}) => {
       .post('/api/session')
       .send({password, username})
       .end((err, res) => {
-        interceptorsAreDone({interceptors});
-        expect(err).to.be.null;
-        expect(res).to.not.be.null;
-        res.should.have.status(200);
-        expect(res.body).to.be.not.null;
-        expect(res.body.success).to.be.true;
-        expect(res.body.data).to.be.not.null;
+        expectSuccess({err, res, interceptors});
         expect(res.body.data.sessionToken).to.be.eq(access_token);
         resolve(done && done());
       });
@@ -40,8 +34,31 @@ const interceptorsAreDone = ({interceptors = []}) => {
   });
 };
 
+const expectSuccess = ({err, res, interceptors}) => {
+  interceptorsAreDone({interceptors});
+  expect(err).to.be.null;
+  expect(res).to.not.be.null;
+  res.should.have.status(200);
+  expect(res.body).to.be.not.null;
+  expect(res.body.success).to.be.true;
+  expect(res.body.data).to.be.not.null;
+};
+
+const expectError = ({err, res, interceptors}) => {
+  interceptorsAreDone({interceptors});
+  expect(err).to.be.null;
+  expect(res).to.not.be.null;
+  res.should.have.status(401);
+  expect(res.body).to.be.not.null;
+  expect(res.body.success).to.be.false;
+  expect(res.body.message).to.be.not.null;
+  expect(res.body.data).to.not.haveOwnProperty;
+};
+
 module.exports = {
   signOutRequest,
   signInSuccessfulRequest,
-  interceptorsAreDone
+  interceptorsAreDone,
+  expectSuccess,
+  expectError
 };

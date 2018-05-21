@@ -12,14 +12,7 @@ const interceptors = require('./interceptors');
 const helpers = require('./helpers');
 
 const signInErrorEndHandler = ({done, interceptors = []}) => (err, res) => {
-  helpers.interceptorsAreDone({interceptors});
-  expect(err).to.be.null;
-  expect(res).to.not.be.null;
-  res.should.have.status(401);
-  expect(res.body).to.be.not.null;
-  expect(res.body.success).to.be.false;      
-  expect(res.body.data).to.not.be.null;
-  expect(res.body.data.sessionToken).to.be.undefined;
+  helpers.expectError({err, res, interceptors});
   done();
 };
 
@@ -57,10 +50,7 @@ describe('Session API', () => {
       helpers.signInSuccessfulRequest({interceptors: interceptors.signInSuccessful()})
         .then(() => {
           helpers.signOutRequest((err, res) => {
-            expect(err).to.be.null;
-            expect(res).to.not.be.null;
-            res.should.have.status(200);
-            expect(res.body.success).to.be.true;
+            helpers.expectSuccess({err, res});
             done();
           });
         });

@@ -33,7 +33,7 @@ const getImageEndpoint = async (req, res) => {
 };
 
 module.exports = (router) => {
-  router.get('/', getEndpoint, {authorize: true});
-  router.get('/image/:name', getImageEndpoint, {authorize: true});
+  router.get('/', getEndpoint);
+  router.get('/image/:name', getImageEndpoint);
   return router;
 };
