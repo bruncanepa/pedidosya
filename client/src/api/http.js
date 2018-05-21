@@ -28,6 +28,17 @@ const handleResponse = (response) => {
 
 const handleError = (error) => error;
 
+export const getImage = function(url) {
+  return fetch(new Request(getURL(url), {
+    method: 'GET',
+    headers: new Headers(getHeaders())
+  }))
+  .then(response => {
+    return response.blob()
+  })
+  .catch(handleError);
+};
+
 export const getHttp = function(url) {
   return fetch(new Request(getURL(url), {
       method: 'GET',

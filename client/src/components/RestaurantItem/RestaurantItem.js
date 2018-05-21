@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Container from '../../containers/RestaurantItem.container';
 import styles from './styles';
@@ -7,12 +8,12 @@ import dictionary from '../../localization';
 
 const {restaurantItem} = dictionary;
 
-const Restaurant = function ({restaurant, image}) {
+const Restaurant = function ({restaurant, image, fetching}) {
   const {name, topCategories, rating, deliveryTimeMaxMinutes, link} = restaurant;
   return (
     <div style={styles.content}>
       <div style={styles.left}>
-        {!!image && <img src={`data:image/jpg;base64,${image}`} />}
+        <img style={styles.image} src={image}/>
       </div>
       <div style={styles.right}>
         <label style={styles.titleLabel}>{name}</label>
@@ -26,7 +27,8 @@ const Restaurant = function ({restaurant, image}) {
 };
 
 Restaurant.Proptype = {
-  restaurant: restaurantPropTypes
+  restaurant: restaurantPropTypes,
+  fetching: PropTypes.bool.isRequired
 };
 
 export default Container(Restaurant);

@@ -1,4 +1,4 @@
-import {getHttp} from './http';
+import {getHttp, getImage as getHttpImage} from './http';
 import {publishSubscribe} from '../utils';
 
 const {events, publish} = publishSubscribe;
@@ -15,8 +15,10 @@ const getAll = async({latitude, longitude}) => {
 };
 
 const getImage = async({logo}) => {
-  const {success, data} = await getHttp(`restaurants/image/${logo}`);
-  return success ? data.image : '';
+  const result = await getHttpImage(`restaurants/image/${logo}`);
+  const urlCreator = window.URL || window.webkitURL;
+  const imageUrl = urlCreator.createObjectURL(result);
+  return imageUrl;
 };
 
 export default {

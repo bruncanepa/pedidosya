@@ -23,5 +23,9 @@ export default {
   },
   label : {
     paddingBottom: 2
+  },
+  image: {
+    height: 80, 
+    paddingTop: 5
   }
 };

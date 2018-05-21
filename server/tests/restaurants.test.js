@@ -15,6 +15,15 @@ describe('Restaurants API', () => {
   const latitude = '-34.905';
   const longitude = '-56.181';
 
+  before(done => {
+    chai.request(server)
+      .put('/api/administration')
+      .set(config.AUTHORIZATION_HEADER, access_token)
+      .set(config.USER_ID_HEADER, user.id)
+      .send({time: 1})
+      .end((err,res) => done())
+  })
+
   beforeEach(done => { 
     helpers.signOutRequest((err, res) => 
       helpers.signInSuccessRequest({done, interceptors: interceptors.signInSuccess()})
@@ -69,9 +78,9 @@ describe('Restaurants API', () => {
         .get(`/api/restaurants/image/${image}`)
         .set(config.AUTHORIZATION_HEADER, access_token)
         .set(config.USER_ID_HEADER, user.id)
-        .end((err, res) =>{
-          helpers.expectSuccess({err, res, interceptors: intercept});
-          expect(res.body.data.image).to.be.not.null;
+        .end((err, res) => {
+          helpers.interceptorsAreDone({interceptors: intercept});
+          res.should.have.status(200);
           done();
         })
     });

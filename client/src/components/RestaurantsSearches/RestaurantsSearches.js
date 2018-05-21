@@ -26,7 +26,7 @@ const Searches = function({searches, loading}) {
           {searches.map((search, i) => <RestaurantSearchItem key={search.id} {...search} i={i+1}/>)}
         </tbody>
       </table>}
-      {!loading && !areSearches && <label>{dic.noSearches}</label>}
+      {!loading && !areSearches && <label style={styles.noSearchesLabel}>{dic.noSearches}</label>}
     </div>
   )
 };

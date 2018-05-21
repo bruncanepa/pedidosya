@@ -9,5 +9,8 @@ export default {
   },
   title: {
     textAlign: 'center'
+  },
+  noSearchesLabel: {
+    alignSelf: 'center'
   }
 }

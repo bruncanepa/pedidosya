@@ -20,10 +20,15 @@ const getEndpoint = async(req, res) => {
   }
 };
 
-const getImageEndpoint = async (req, res) => {
+const getImageEndpoint = async (req, res, next) => {
   const {name} = req.params;
   const result = await getRestaurantImage({name});
-  res.send(result);
+  const {data} = result;
+  res.sendFile(data.path, (err) => {
+    if (err) {
+      next(err);
+    } 
+  })
 };
 
 module.exports = (router) => {
