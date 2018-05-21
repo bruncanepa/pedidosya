@@ -1,9 +1,9 @@
-const {PY_GET_USER_URI} = require('../config');
+const {PY_GET_USER_URL} = require('../config');
 const {httpCustom, headers} = require('../utils');
 const {ResponseData, User} = require('../models');
 const dictionary = require('../localization');
 
-const url = PY_GET_USER_URI;
+const url = PY_GET_USER_URL;
 
 module.exports = async({token}) => {
   const result = {success: false, message: dictionary.invalidSessionToken};

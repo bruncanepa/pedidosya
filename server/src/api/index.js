@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
 
+const importEnv = require('../utils/importEnv.util');
+
 require('../extensions');
+importEnv();
 
 const {SERVER_PORT} = require('../config');
 const useMiddlewares = require('../middlewares');

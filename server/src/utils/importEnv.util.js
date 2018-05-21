@@ -3,7 +3,7 @@ const readFile = require('./readFile.util');
 
 module.exports = async(path = `../.env`) => {
   const variables = {};
-  const file = await readFile(path);
+  const file = readFile({name: path, async: false});
   file
     .split('\n')
     .forEach(line => {

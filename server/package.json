@@ -6,7 +6,9 @@
   "author": "Bruno Cánepa",
   "scripts": {
     "server": "node index",
-    "dev": "nodemon ./src/index.js localhost 3001"
+    "dev": "nodemon ./src/index.js localhost 3001",
+    "test": "mocha ./tests",
+    "test-debug": "mocha ./tests --inspect-brk"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -19,6 +21,10 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.1.1",
+    "nock": "^9.2.6",
     "nodemon": "^1.17.4"
   }
 }

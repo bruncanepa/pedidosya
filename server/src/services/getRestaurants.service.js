@@ -1,9 +1,9 @@
 const {httpCustom, headers} = require('../utils');
 const {ResponseData, Restaurant, Cache} = require('../models');
-const {PY_GET_RESTAURANTS_URI} = require('../config');
+const {PY_GET_RESTAURANTS_URL} = require('../config');
 const dictionary = require('../localization');
 
-const baseURL = PY_GET_RESTAURANTS_URI;
+const baseURL = PY_GET_RESTAURANTS_URL;
 const country = 1;
 const offset = 0;
 const limit = 20;

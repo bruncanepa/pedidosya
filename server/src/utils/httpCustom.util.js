@@ -8,7 +8,7 @@ module.exports = {
       headers: headers
     });
 
-    const {data, status} = await instance
+    let {data, status} = await instance
       .get(url)
       .catch(error => {
         return new ResponseData({status: error.nested(['response', 'satus'])});

@@ -2,10 +2,10 @@ const getAppToken = require('./getAppToken.service');
 const onlineUsers = require('./onlineUsers.service');
 const {httpCustom, headers} = require('../utils');
 const {ResponseData} = require('../models');
-const {PY_SIGN_IN_URI} = require('../config');
+const {PY_SIGN_IN_URL} = require('../config');
 const dictionary = require('../localization');
 
-const baseURL = PY_SIGN_IN_URI;
+const baseURL = PY_SIGN_IN_URL;
 
 const signIn = async({appToken, username, password}) => {
   const url = baseURL.format(username, password);
@@ -19,7 +19,7 @@ const signIn = async({appToken, username, password}) => {
     result.success = true;
     result.data = {sessionToken: access_token, appToken};
     result.message = '';
-    onlineUsers.addSession({token: access_token});
+    await onlineUsers.addSession({token: access_token});
   } 
 
   return result;
