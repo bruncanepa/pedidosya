@@ -1,0 +1,13 @@
+{
+  "name": "pedidos-ya",
+  "version": "1.0.0",
+  "repository": "https://github.com/brunocanepa/pedidos-ya.git",
+  "author": "Bruno Canepa <bru.canepa@gmail.com>",
+  "scripts": {
+    "redis": "cd ./server && yarn && yarn redis",
+    "server": "cd ./server && yarn && yarn server",
+    "server-dev": "cd ./server && yarn && yarn dev",
+    "server-test": "cd ./server && yarn && yarn test",
+    "web": "cd ./client && yarn && yarn start"
+  }
+}
