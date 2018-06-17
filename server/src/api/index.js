@@ -13,6 +13,10 @@ const useMiddlewares = require('../middlewares');
 
 const app = express();
 
+console.log(__dirname + "/../../../dist")
+
+app.use(express.static(__dirname + "/../../../dist"));
+
 useMiddlewares(app);
 
 app.listen(SERVER_PORT, () => {

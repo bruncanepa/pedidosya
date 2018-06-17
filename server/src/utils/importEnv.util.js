@@ -7,8 +7,7 @@ module.exports = async(path = `../.env`) => {
   file
     .split('\n')
     .forEach(line => {
-      const [key,
-        value] = line.split('=');
+      const [key, value] = line.split('=');
       process.env[key] = value;
       variables[key] = value;
     });

@@ -11,7 +11,7 @@ const errorHandler = (res) => (error) => {
   res.status(statusCodes.BAD_REQUEST).send(result);
 };
 
-const asyncRequestHandler = (...handlers) => (
+const asyncRequestHandler = (handlers) => (
   handlers
     .map(handler => (req, res, next) => {
       Promise
@@ -27,7 +27,7 @@ const getHandlers = ({options  = defaultOptions, handler}) => {
   if (options.authorize) {
     handlers.unshift(authorize);
   }
-  return asyncRequestHandler(...handlers);
+  return asyncRequestHandler(handlers);
 };
 
 function ExpressWrapper(router) {
@@ -37,10 +37,12 @@ function ExpressWrapper(router) {
 
 ExpressWrapper.prototype.post = function(route, handler, options) {
   this.router.post(route, ...getHandlers({options, handler}));
+  return this.router;
 };
 
 ExpressWrapper.prototype.put = function(route, handler, options) {
   this.router.put(route, ...getHandlers({options, handler}));
+  return this.router;
 };
 
 ExpressWrapper.prototype.get = function(route, handler, options) {
@@ -49,6 +51,7 @@ ExpressWrapper.prototype.get = function(route, handler, options) {
 
 ExpressWrapper.prototype.delete = function(route, handler, options) {
   this.router.delete(route, ...getHandlers({options, handler}));
+  return this.router;
 };
 
 module.exports = ExpressWrapper;

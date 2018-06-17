@@ -6,7 +6,10 @@ import Container from '../../containers/MenuBar.container';
 import styles from './styles';
 
 class MenuBar extends React.Component {
-  state = {active: 1}
+  constructor(props) {
+    super(props);
+    this.state = {active: 1}
+  }
 
   componentWillMount() {
     const path = window.location.pathname;
